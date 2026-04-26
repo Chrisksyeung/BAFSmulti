@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BAFS Exam System - 100% Correct Answers</title>
+    <title>BAFS Exam System - From Your Textbooks</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -77,8 +77,6 @@
         .option:hover { border-color: #1e3c72; background: #f0f4ff; }
         .option.selected { border-color: #1e3c72; background: #1e3c72; color: white; }
         .option.correct-answer { border-color: #22c55e; background: #dcfce7; }
-        .option.wrong-answer { border-color: #ef4444; background: #fee2e2; }
-        .option.correct-answer-selected { border-color: #22c55e; background: #22c55e; color: white; }
         .option.wrong-answer-selected { border-color: #ef4444; background: #ef4444; color: white; }
         .option-letter { font-weight: bold; font-size: 1.1em; margin-bottom: 8px; }
         .option-text { white-space: pre-line; line-height: 1.6; }
@@ -140,38 +138,38 @@
         .badge-management { background: #10b981; color: white; }
         .badge-financial { background: #f59e0b; color: white; }
         .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .source-note { text-align: center; color: #888; font-size: 0.8em; margin-top: 10px; }
+        .topic-tag { font-size: 0.8em; color: #888; margin-bottom: 5px; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="card" id="subjectScreen">
             <h1>BAFS Exam System</h1>
-            <p class="subtitle">Based on Your PDF Materials - 100% Correct Answers</p>
+            <p class="subtitle">Questions Based on Your Textbook Content</p>
             
             <div class="subject-grid">
                 <div class="subject-card" onclick="loadSubject('business-environment')">
                     <div class="subject-icon">🏢</div>
                     <div class="subject-title">Business Environment</div>
-                    <div class="subject-count">30 questions</div>
-                    <div class="source-note">From BM Vol. 1</div>
+                    <div class="subject-count">50 questions</div>
+                    <div class="topic-tag">Vol. 1: HK Economy, CEPA, WTO, Business Ownership, Ethics</div>
                 </div>
                 <div class="subject-card" onclick="loadSubject('introduction-to-management')">
                     <div class="subject-icon">⚙️</div>
                     <div class="subject-title">Introduction to Management</div>
-                    <div class="subject-count">30 questions</div>
-                    <div class="source-note">From BM Vol. 2</div>
+                    <div class="subject-count">50 questions</div>
+                    <div class="topic-tag">Vol. 2: Planning, Organizing, Leading, Controlling, Business Functions</div>
                 </div>
                 <div class="subject-card" onclick="loadSubject('personal-financial-management')">
                     <div class="subject-icon">💰</div>
                     <div class="subject-title">Personal Financial Management</div>
-                    <div class="subject-count">30 questions</div>
-                    <div class="source-note">From BM Vol. 3</div>
+                    <div class="subject-count">50 questions</div>
+                    <div class="topic-tag">Vol. 3: Time Value, NPV, Consumer Credit, Risk, MPF</div>
                 </div>
                 <div class="subject-card" onclick="loadSubject('all')">
                     <div class="subject-icon">🎯</div>
                     <div class="subject-title">All Subjects</div>
-                    <div class="subject-count">90 questions</div>
+                    <div class="subject-count">150 questions</div>
                 </div>
             </div>
         </div>
@@ -181,7 +179,7 @@
                 <button class="btn btn-back" onclick="showSubjects()">← Back</button>
                 <span class="badge" id="subjectBadge">Business Environment</span>
             </div>
-            <div class="progress-text">Question <span id="currentNum">1</span> of <span id="totalNum">30</span></div>
+            <div class="progress-text">Question <span id="currentNum">1</span> of <span id="totalNum">35</span></div>
             <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
             <div class="question" id="questionText"></div>
             <div class="options" id="optionsContainer"></div>
@@ -225,105 +223,205 @@
             'all': 'badge-business'
         };
 
-        // BUSINESS ENVIRONMENT - 30 questions from PDF Vol.1
+        // ==================== BUSINESS ENVIRONMENT (From Vol.1) ====================
         allQuestions['business-environment'] = [
-            { question: "Which of the following is/are the example(s) of economic factors that might affect the business of a jewelry shop in Hong Kong?", statements: ["There is an increase in the income and consumption power of mainland tourists", "The mainland government allows residents of more cities to come to Hong Kong for individual visits", "The cross-border transport facilities are improved"], options: ["(1) only", "(2) only", "(1) and (3) only", "(2) and (3) only"], answer: 0 },
-            { question: "Mike wants to set up a yoghurt shop in Mongkok. Which of the following factors is he considering if he conducts a survey on the tastes and preferences of his target customers?", options: ["Technological factors", "Physical factors", "Economic factors", "Social and cultural factors"], answer: 3 },
-            { question: "A business should be responsible to various stakeholders. List three types of stakeholders in a construction company and explain how the company can ethically fulfill its social responsibilities to each of them. Which of the following is NOT a stakeholder?", options: ["Owners and shareholders", "Manager and employees", "Government", "None of the above"], answer: 3 },
-            { question: "Which of the following statements about the characteristics of Hong Kong economy is correct?", statements: ["Hong Kong lacks arable land and natural resources", "The tertiary sector contributes around 90% of the Hong Kong GDP", "Hong Kong maintains no trade barriers"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "CEPA (Closer Economic Partnership Arrangement) includes", statements: ["Trade in Goods", "Trade in Services", "Investment", "Economic and technical cooperation"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "Which of the following is a Four Pillar Industry in Hong Kong?", options: ["Financial Services", "Farming", "Mining", "Fishing"], answer: 0 },
-            { question: "WTO (World Trade Organization) was set up in", options: ["1990", "1995", "2000", "2005"], answer: 1 },
-            { question: "Which of the following is NOT a function of WTO?", options: ["Reduce obstacles to international trade", "Deal with rules of trade between countries", "Set tax rates for member countries", "Monitor trade policies of members"], answer: 2 },
-            { question: "APEC was founded in", options: ["1985", "1989", "1995", "2000"], answer: 1 },
-            { question: "Factors affecting business decisions include", statements: ["Economic factors", "Social factors", "Political factors", "Legal factors"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "Which of the following is an economic factor?", options: ["Tastes and preferences of customers", "Wage level of labour", "Political stability", "Labor laws"], answer: 1 },
-            { question: "Which of the following is a social factor?", options: ["Income level", "Interest rate", "Tastes and preferences", "Tax rate"], answer: 2 },
-            { question: "Which of the following is a political factor?", options: ["Population size", "Political stability", "Exchange rate", "Infrastructure"], answer: 1 },
-            { question: "Which of the following is a legal factor?", options: ["Government policies", "Minimum wage Ordinance", "Cultural values", "Technology level"], answer: 1 },
-            { question: "Sole proprietorship has", statements: ["Only one owner", "Unlimited liability", "The firm is not a legal entity"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "The profit tax rate of sole proprietorship is", options: ["7.5%", "15%", "16.5%", "17.5%"], answer: 1 },
-            { question: "In a partnership, partners bear", options: ["Limited liability", "Unlimited liability", "No liability", "Partial liability"], answer: 1 },
-            { question: "Types of partners include", statements: ["General partner", "Limited partner", "Nominal partner"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "A private limited company has", statements: ["1 to 50 shareholders", "Limited liability", " lasting business continuity"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Shares of a private limited company", options: ["Can be traded in stock market", "Cannot be traded in stock market", "Are freely transferrable", "Have no restrictions"], answer: 1 },
-            { question: "A public limited company", statements: ["Has no upper limit on shareholders", "Is a legal entity", "Has limited liability"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Business ethics are", options: ["Laws and regulations", "Principles, values and beliefs guiding business behavior", "Government policies", "Tax regulations"], answer: 1 },
-            { question: "Stakeholders of a firm usually include", statements: ["Owners and shareholders", "Manager and employees", "Customers and suppliers", "Government and community"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "Social responsibility refers to", options: ["Making maximum profit", "Responsibility to society and stakeholders", "Avoiding taxes", "Reducing employees"], answer: 1 },
-            { question: "The primary sector includes", options: ["Manufacturing", "Farming and Mining", "Retail and Tourism", "Banking and Finance"], answer: 1 },
-            { question: "The tertiary sector is also known as", options: ["Agriculture sector", "Industrial sector", "Service sector", "Manufacturing sector"], answer: 2 },
-            { question: "Globalization leads to", statements: ["Intensified global competition", "Increasing international flow of capital", "Increasing technology transfer"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Hong Kong pursues", options: ["Free trade with no trade barriers", "Protectionist policies", "High tariff rates", "Import quotas"], answer: 0 },
-            { question: "The GDP measures", options: ["Total value of output produced in an economy", "Total government revenue", "Total exports minus imports", "Total population"], answer: 0 },
-            { question: "Which of the following about the characteristics of a sole proprietorship is correct?", statements: ["Easy to transfer ownership", "Narrower source of capital", "Lack business continuity"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 2 }
+            // Topic 1: Roles of Business in HK
+            { question: "Business refers to", options: ["The activity of producing, buying, selling or supplying goods or services for money", "Only manufacturing activities", "Only retail activities", "Only government activities"], answer: 0 },
+            { question: "The primary sector involves", options: ["Direct extraction of natural resources", "Processing raw materials", "Provision of services", "Selling goods only"], answer: 0 },
+            { question: "Which of the following is an example of tertiary sector?", statements: ["Farming", "Mining", "Financial services", "Construction"], options: ["(1) only", "(3) only", "(1) and (2) only", "(1), (2) and (3)"], answer: 1 },
+            { question: "Business sector in Hong Kong employed more than ___ of the labour force", options: ["50%", "70%", "90%", "100%"], answer: 2 },
+            { question: "Business contributes to Hong Kong by", statements: ["Providing job opportunities", "Producing income for people", "Promoting economic growth"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Revenue for Hong Kong government from business includes", statements: ["Profits tax", "Land sales", "Stamp duties"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            
+            // Topic 2: Characteristics of HK Economy
+            { question: "Which of the following is a characteristic of Hong Kong economy?", statements: ["Lack of primary industries", "Concentration on tertiary industry", "Pursue free trade with no trade barriers"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Four Pillar Industries in Hong Kong include", statements: ["Financial Services", "Trading and logistics", "Tourism", "Producer and professional services"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
+            { question: "GDP measures", options: ["Total value of output produced in an economy in a given period", "Total government revenue", "Total exports", "Total population"], answer: 0 },
+            { question: "Hong Kong maintains", options: ["No trade barriers (no tariff and quota)", "High tariff rates", "Import quotas", "Protectionist policies"], answer: 0 },
+            { question: "Hong Kong has a", options: ["Simple tax system with low tax rate", "Complex tax system", "High sales tax", "Capital gain tax"], answer: 0 },
+            { question: "Hong Kong lacks", options: ["Arable land and natural resources", "Financial services", "Trading companies", "Tourism"], answer: 0 },
+            { question: "Tertiary sector contributes around ___ of Hong Kong GDP", options: ["90%", "50%", "70%", "30%"], answer: 0 },
+            { question: "Hong Kong follows ___ policies", options: ["Small government, laissez-faire", "Protectionist", "Socialist", "Communist"], answer: 0 },
+            
+            // Topic 3: CEPA
+            { question: "CEPA was signed in", options: ["2003", "1995", "2000", "1990"], answer: 0 },
+            { question: "CEPA includes", statements: ["Trade in Goods", "Trade in Services", "Investment", "Economic and technical cooperation"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
+            { question: "Under CEPA, tariffs are not levied on goods originating in", options: ["Hong Kong exported to Mainland", "Mainland exported to Hong Kong", "Both directions", "Neither direction"], answer: 0 },
+            { question: "CEPA Trade in Services gives Hong Kong service suppliers", options: ["Preferential treatment when setting up business in Mainland", "Tax exemptions", "Free trade rights", "Government grants"], answer: 0 },
+            { question: "Mutual Recognition of Professional Qualifications under CEPA includes", statements: ["Construction and Engineering Services", "Securities and Futures Services", "Insurance Services", "All of the above"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Hong Kong exports services to China including", options: ["Financial and business services", "Manufacturing services", "Agricultural services", "Mining services"], answer: 0 },
+            { question: "Hong Kong acts as a ___ for Mainland China enterprises", options: ["Fund raising center", "Manufacturing center", "Agricultural center", "Mining center"], answer: 0 },
+            
+            // Topic 4: Globalization
+            { question: "Major impacts of globalization include", statements: ["Intensified global competition", "Increasing international flow of capital", "Increasing technology transfer"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Global sourcing helps firms to", options: ["Reduce production cost of goods", "Increase prices", "Reduce quality", "Limit market reach"], answer: 0 },
+            { question: "Outsourcing helps firms to", options: ["Reduce production cost by moving to lower cost locations", "Increase workforce", "Reduce competition", "Increase quality"], answer: 0 },
+            { question: "Well-developed telecommunication network", options: ["Lowers information cost and marketing cost", "Increases production cost", "Reduces sales", "Limits international trade"], answer: 0 },
+            { question: "Globalization increases", options: ["Competition for local firms", "Market monopoly", "Government control", "Trade barriers"], answer: 0 },
+            
+            // Topic 5: WTO and APEC
+            { question: "WTO was set up in", options: ["1995", "1989", "2000", "1990"], answer: 0 },
+            { question: "The purpose of WTO is to", options: ["Promote free trade by persuading countries to abolish import tariffs", "Increase trade barriers", "Control prices", "Regulate currencies"], answer: 0 },
+            { question: "WTO provides a forum for", options: ["Negotiations aimed at reducing obstacles to international trade", "Setting tax rates", "Controlling exchange rates", "Regulating stock markets"], answer: 0 },
+            { question: "APEC was founded in", options: ["1989", "1995", "2000", "1990"], answer: 0 },
+            { question: "APEC's decisions are", options: ["Reached by consensus; commitments made on voluntary basis", "Legally binding", "Mandatory for all members", "Set by majority vote"], answer: 0 },
+            { question: "WTO has the power to", options: ["Impose trade sanctions if members fail to comply", "Set national tax rates", "Control exchange rates", "Regulate stock exchanges"], answer: 0 },
+            { question: "APEC aims to build a dynamic and harmonious", options: ["Asia-Pacific community", "World government", "European union", "African union"], answer: 0 },
+            { question: "Which organization requires no treaty obligations?", options: ["APEC", "WTO", "UN", "EU"], answer: 0 },
+            
+            // Topic 6: Factors affecting business decisions
+            { question: "When establishing a business, a businessman cares about", statements: ["Lower production costs", "Higher sales revenue", "Lower investment risk"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Economic factors include", statements: ["General economic conditions", "Income level of people", "Market interest rate"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Higher interest rate leads to", options: ["Higher cost of capital", "Lower production cost", "Higher sales revenue", "Lower profit tax"], answer: 0 },
+            { question: "Social factors include", statements: ["Population size", "Taste and preference of customers", "Religion of the majority people"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Physical factors include", statements: ["Natural resources possessed", "Infrastructure and transport networks", "Climate and air quality"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Higher political stability leads to", options: ["Less risky investment environment", "Higher business risk", "More regulations", "Lower profits"], answer: 0 },
+            { question: "Legal factors include", statements: ["Existence of sound legal system", "Minimum wage Ordinance", "Fire Services Ordinance"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Technological factors affect", options: ["Training cost and productivity", "Tax rates", "Political stability", "Government policies"], answer: 0 },
+            { question: "Well-developed transportation network leads to", options: ["Lower transportation cost", "Higher production cost", "More regulations", "Lower sales"], answer: 0 },
+            
+            // Topic 7: Forms of Business Ownership
+            { question: "A sole proprietorship has", statements: ["Only one owner", "The firm is not a legal entity", "The owner bears unlimited liability"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "The profit tax rate for sole proprietorship is", options: ["15%", "16.5%", "17.5%", "7.5%"], answer: 0 },
+            { question: "Partnership has ___ or more owners", options: ["2", "3", "4", "5"], answer: 0 },
+            { question: "General partners bear", options: ["Unlimited liability", "Limited liability", "No liability", "Partial liability"], answer: 0 },
+            { question: "Limited partners' maximum loss is", options: ["Confined to the amount of their investment", "All their personal assets", "Half of their assets", "No limit"], answer: 0 },
+            { question: "A private limited company has shareholders ranging from", options: ["1 to 50", "1 to 100", "2 to 50", "No limit"], answer: 0 },
+            { question: "Shareholders of a private limited company bear", options: ["Limited liability", "Unlimited liability", "No liability", "Joint liability"], answer: 0 },
+            { question: "A private limited company is a", options: ["Legal entity", "Not a legal entity", "Government entity", "Non-profit organization"], answer: 0 },
+            { question: "Shares of a private limited company", options: ["Cannot be traded in stock market", "Can be freely traded", "Are listed on stock exchange", "Have no restrictions"], answer: 0 },
+            { question: "A public limited company has", options: ["No upper limit on number of shareholders", "Maximum 50 shareholders", "Maximum 100 shareholders", "Exactly 10 shareholders"], answer: 0 },
+            { question: "Public limited company shares are", options: ["Freely transferrable", "Restricted to existing shareholders", "Not transferable", "Only transferable with consent"], answer: 0 },
+            { question: "Which business ownership has longest business continuity?", options: ["Private/Public limited company", "Sole proprietorship", "Partnership", "All have same"], answer: 0 },
+            { question: "Which form needs to disclose financial accounts to the public?", options: ["Public limited company", "Private limited company", "Sole proprietorship", "Partnership"], answer: 0 },
+            { question: "A sole proprietorship is easy to", options: ["Set up and dissolve", "Raise capital", "Transfer ownership", "Expand internationally"], answer: 0 },
+            { question: "Partnership has collective responsibility meaning", options: ["All partners are bound by business decisions of any partner", "Each partner acts alone", "Partners share profits only", "Partners have no liability"], answer: 0 },
+            { question: "Public limited company profit tax rate is", options: ["16.5%", "15%", "17%", "10%"], answer: 0 },
+            { question: "Nominal partner", options: ["Does not invest in the business and cannot participate in management", "Is a real owner", "Has unlimited liability", "Can make decisions"], answer: 0 },
+            
+            // Topic 8: Business Ethics
+            { question: "Stakeholders of a firm include", statements: ["Owners and shareholders", "Employees and customers", "Government and community"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Business ethics are", options: ["Principles, values and beliefs guiding business behavior", "Government laws only", "Tax regulations only", "Product standards only"], answer: 0 },
+            { question: "Social responsibility refers to", options: ["Responsibility of a firm to society and all its stakeholders", "Maximizing profits only", "Avoiding taxes", "Reducing employees"], answer: 0 },
+            { question: "Ways to enhance business ethics include", statements: ["Emphasizing importance in recruitment", "Compiling a code of ethics", "Providing education and training courses"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Differences between law and ethics include", statements: ["Illegal transactions are clearly stated in laws", "Unethical practices are NOT stated in documents", "Legal punishments are specified for law violations"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "A business should be socially responsible to", options: ["All stakeholders", "Shareholders only", "Government only", "Customers only"], answer: 0 },
+            { question: "Benefits of being socially responsible include", statements: ["Better business reputation", "Attract customers concerned about social responsibilities", "Raise staff loyalty"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Ethics is different from law because", options: ["Ethical values are different for different people", "Both have clear written standards", "Both have specified punishments", "Both apply to everyone the same"], answer: 0 }
         ];
 
-        // INTRODUCTION TO MANAGEMENT - 30 questions from PDF Vol.2
+        // ==================== INTRODUCTION TO MANAGEMENT (From Vol.2) ====================
         allQuestions['introduction-to-management'] = [
-            { question: "Management is the process that managers used to accomplish organizational goals through", statements: ["Planning", "Organizing", "Leading", "Controlling"], options: ["(1) only", "(1) and (2) only", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "The importance of management includes", statements: ["Enhance the efficiency use of resources", "Help staff achieve the goal effectively"], options: ["(1) only", "(2) only", "(1) and (2)", "Neither (1) nor (2)"], answer: 2 },
+            // Management Functions: Planning
+            { question: "Management is the process that managers use to accomplish organizational goals through", statements: ["Planning", "Organizing", "Leading", "Controlling"], options: ["(1) only", "(1) and (2) only", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
+            { question: "The importance of management includes", statements: ["Enhance efficiency use of resources", "Help staff achieve goals effectively"], options: ["(1) only", "(2) only", "(1) and (2)", "Neither"], answer: 2 },
+            { question: "Efficiency means", options: ["Doing the thing right", "Doing the right thing", "Making maximum profit", "Reducing all costs"], answer: 0 },
+            { question: "Effectiveness means", options: ["Doing the right thing to achieve company goals", "Working fast", "Following rules", "Minimizing costs"], answer: 0 },
             { question: "Planning is", options: ["Deciding in advance what to do, when to do and how to do", "Directing employees", "Controlling expenses", "Organizing resources"], answer: 0 },
             { question: "SMART goals characteristics include", statements: ["Specific", "Measurable", "Attainable", "Relevant", "Time-based"], options: ["(1) and (2) only", "(1), (2) and (3)", "(1), (2), (3) and (4)", "(1), (2), (3), (4) and (5)"], answer: 3 },
-            { question: "Which management level determines the company's overall goals and direction?", options: ["Top management", "Middle management", "Front-line management", "All levels"], answer: 0 },
-            { question: "Front-line managers are responsible for", statements: ["Making strategic decisions", "Monitoring daily operations", "Formulating corporate policies"], options: ["(1) only", "(2) only", "(3) only", "(1), (2) and (3)"], answer: 1 },
+            
+            // Organizing
+            { question: "Organizing involves", options: ["Bringing together physical, financial and human resources", "Setting goals", "Leading employees", "Controlling budgets"], answer: 0 },
+            { question: "Top management determines", options: ["The company's overall goals and direction", "Daily operations", "Customer complaints", "Worker schedules"], answer: 0 },
+            { question: "Front-line managers are responsible for", options: ["Daily operation of the business", "Strategic decisions", "Company policies", "Overall direction"], answer: 0 },
             { question: "Flat organizational structure has", statements: ["Fewer levels of management", "Wider span of control", "Shorter decision-making process"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Tall organizational structure has", statements: ["More levels", "Narrower span of control", "Slower decision making"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Departmentalization by geographical location is commonly used by", options: ["Small companies", "Multinational corporations", "Retail stores", "Manufacturing companies"], answer: 1 },
-            { question: "Leading refers to", options: ["Guiding, directing, and motivating people", "Allocating work", "Setting standards", "Evaluating performance"], answer: 0 },
-            { question: "Autocratic leadership style", statements: ["Little input from group members", "Leaders make almost all decisions", "Work tends to be highly structured"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Democratic/Participative leadership", statements: ["Leaders invite input from employees", "Staff are given information about company issues", "Majority vote in decision making"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Laissez-faire leadership leads to", options: ["Highest productivity", "Lowest productivity", "Moderate productivity", "No effect on productivity"], answer: 1 },
+            { question: "Tall organizational structure has", options: ["More levels and narrower span of control", "Fewer levels", "Wider span of control", "Faster decision making"], answer: 0 },
+            { question: "Span of control refers to", options: ["Number of subordinates reporting to a manager", "Number of managers", "Level of hierarchy", "Budget size"], answer: 0 },
+            { question: "Departmentalization by geographical location is commonly used by", options: ["Multinational corporations", "Small local stores", "Family businesses", "Single-product companies"], answer: 0 },
+            
+            // Leading
+            { question: "Leading refers to", options: ["Guiding, directing, and motivating people to work towards goals", "Allocating work", "Setting standards", "Evaluating performance"], answer: 0 },
+            { question: "Autocratic leadership", statements: ["Leaders make almost all decisions", "Little input from group members", "Work tends to be highly structured"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Democratic leadership", statements: ["Leaders invite input from employees", "Staff are given information about company issues", "Majority vote in decision making"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Laissez-faire leadership leads to", options: ["Lowest productivity", "Highest productivity", "Moderate productivity", "No effect"], answer: 0 },
+            { question: "Autocratic leadership is suitable when", statements: ["Subordinates are inexperienced", "Need to make quick decisions", "Subordinates do simple, routine tasks"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            
+            // Controlling
             { question: "Controlling is", options: ["Monitoring activities to ensure they are done as planned", "Hiring new employees", "Setting goals", "Organizing resources"], answer: 0 },
             { question: "Process of controlling includes", statements: ["Setting performance standards", "Measuring actual performance", "Taking corrective actions"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Division of work means", options: ["Breaking down production into different tasks", "Hiring more workers", "Increasing salaries", "Reducing working hours"], answer: 0 },
-            { question: "Unity of command means", options: ["Each worker takes orders from only one superior", "All workers do the same job", "One worker supervises all", "Workers choose their own tasks"], answer: 0 },
-            { question: "Unity of direction means", options: ["Employees on same project have same goal", "Only one manager in company", "All departments report to CEO", "Single product line only"], answer: 0 },
+            { question: "Performance standards are used to", options: ["Evaluate a worker's performance", "Set salaries", "Hire employees", "Design products"], answer: 0 },
+            
+            // Principles of Management
+            { question: "Division of work means", options: ["Breaking down production into different tasks", "Hiring more workers", "Increasing salaries", "Reducing hours"], answer: 0 },
+            { question: "Unity of command means", options: ["Each worker takes orders from only one superior", "All workers do the same job", "One worker supervises all", "Workers choose tasks"], answer: 0 },
+            { question: "Unity of direction means", options: ["Employees on same project have same goal", "Only one manager in company", "Single product line only", "One department"], answer: 0 },
             { question: "Delegation is effective when", statements: ["Authority delegated in line with responsibility", "Delegating to capable subordinates", "Providing sufficient resources"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            
+            // Key Business Functions
             { question: "Human resources management tasks include", statements: ["Recruit and select staff", "Provide training", "Conduct performance appraisal"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Finance management department is responsible for", statements: ["Develop financial plans and budgets", "Monitor cash inflow and outflow", "Assess investment projects"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Finance management is responsible for", statements: ["Develop financial plans and budgets", "Monitor cash inflow and outflow", "Assess investment projects"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
             { question: "Operations management involves", statements: ["Plan for production capacity", "Design production process", "Manage inventory"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
             { question: "Marketing management includes", statements: ["Identify market opportunities", "Determine market position", "Select target market"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
             { question: "The 4P model in marketing includes", statements: ["Product", "Price", "Place", "Promotion"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "Information management is", options: ["Equal to ICT", "Not equal to ICT only", "Only for IT companies", "Not important"], answer: 1 },
+            { question: "Information management is", options: ["Not equal to ICT only", "Equal to ICT", "Only for IT companies", "Not important"], answer: 0 },
             { question: "Risk management strategies include", statements: ["Risk avoidance", "Risk assumption", "Risk reduction", "Risk transfer"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "SMEs in Hong Kong employ", options: ["Fewer than 100 persons for manufacturing", "Fewer than 50 persons for non-manufacturing", "More than 500 persons", "Exactly 100 persons"], answer: 0 },
-            { question: "Entrepreneurs are people who", options: ["Take risks to start a business for making profits", "Work for large companies", "Avoid any business activities", "Only invest in stocks"], answer: 0 },
-            { question: "MNCs (Multinational Corporations) usually", statements: ["Have larger production scale", "Are managed by professional managers", "Have complex organization structures"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 }
+            
+            // SMEs and MNCs
+            { question: "SMEs in Hong Kong (manufacturing) employ", options: ["Fewer than 100 persons", "More than 500 persons", "Exactly 100 persons", "More than 200 persons"], answer: 0 },
+            { question: "SMEs in Hong Kong (non-manufacturing) employ", options: ["Fewer than 50 persons", "Fewer than 100 persons", "More than 100 persons", "Exactly 50 persons"], answer: 0 },
+            { question: "SMEs are usually managed by", options: ["Owners and family members", "Professional managers", "Government", "Stockholders"], answer: 0 },
+            { question: "MNCs are usually managed by", options: ["Professional managers", "Owners directly", "Government", "Employees"], answer: 0 },
+            { question: "Entrepreneurs are people who", options: ["Take risks to start a business for making profits", "Work for large companies", "Avoid business activities", "Only invest in stocks"], answer: 0 }
         ];
 
-        // PERSONAL FINANCIAL MANAGEMENT - 30 questions from PDF Vol.3
+        // ==================== PERSONAL FINANCIAL MANAGEMENT (From Vol.3) ====================
         allQuestions['personal-financial-management'] = [
+            // Time Value of Money
             { question: "Time value of money means", options: ["A dollar received today is worth more than a dollar in the future", "Money loses value every year", "Interest rates are always high", "Inflation is good for savers"], answer: 0 },
-            { question: "Future Value (FV) formula is", options: ["PV × (1 + r)^n", "FV / (1 + r)^n", "PV × r × n", "FV × r × n"], answer: 0 },
+            { question: "Future Value (FV) formula is", options: ["PV × (1 + r)^n", "FV / (1 + r)^n", "PV × r × n", "PV / (1 + r)"], answer: 0 },
             { question: "Present Value (PV) formula is", options: ["FV / (1 + r)^n", "PV × (1 + r)^n", "FV × r × n", "PV / r"], answer: 0 },
             { question: "Compounding means", options: ["Interest is reinvested to earn further return", "Principal is decreased", "Only interest is paid", "Money is withdrawn"], answer: 0 },
             { question: "Discounting is the process of", options: ["Finding present value of future cash flow", "Finding future value", "Calculating interest only", "Tax calculation"], answer: 0 },
-            { question: "NPV (Net Present Value) decision: If NPV is positive, the firm should", options: ["Buy the machine", "Not buy the machine", "Sell the machine", "Do nothing"], answer: 0 },
-            { question: "NPV (Net Present Value) decision: If NPV is negative, the firm should", options: ["Not buy the machine", "Buy the machine", "Borrow more money", "Hire more workers"], answer: 0 },
+            { question: "If compounding frequency is higher, effective rate is", options: ["Higher", "Lower", "Same", "Zero"], answer: 0 },
+            
+            // NPV
+            { question: "NPV stands for", options: ["Net Present Value", "New Present Value", "Net Profit Value", "Normal Present Value"], answer: 0 },
+            { question: "NPV =", options: ["PV of future cash inflows - Initial cash outflow", "FV - PV", "Total revenue - Total cost", "Interest - Principal"], answer: 0 },
+            { question: "If NPV is positive, the firm should", options: ["Buy the machine (favorable investment)", "Not buy the machine", "Sell the machine", "Do nothing"], answer: 0 },
+            { question: "If NPV is negative, the firm should", options: ["Not buy the machine (unfavorable investment)", "Buy the machine", "Borrow more money", "Hire more workers"], answer: 0 },
+            
+            // Nominal vs Effective Rate
             { question: "Nominal interest rate is", options: ["Rate stated on financial instruments", "Actual interest received", "Effective rate of return", "Inflation rate"], answer: 0 },
             { question: "Effective interest rate reflects", options: ["Effect of frequency of compounding", "Nominal rate only", "Bank fees", "Tax charges"], answer: 0 },
-            { question: "If compounding frequency is higher, effective rate is", options: ["Higher", "Lower", "Same", "Zero"], answer: 0 },
+            { question: "If interest is compounded quarterly instead of annually, effective rate will be", options: ["Higher", "Lower", "Same", "Zero"], answer: 0 },
+            
+            // Consumer Credit
             { question: "Consumer credit is", options: ["Arrangement to receive goods/services first and pay later", "Cash payment only", "Savings account", "Investment product"], answer: 0 },
             { question: "Credit cards have", statements: ["A credit limit set", "Minimum payment requirement", "Interest charged on unpaid balance"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Personal credit record is stored in", options: ["TransUnion Limited", "Banks only", "Government only", "Employers"], answer: 0 },
+            { question: "Credit record in Hong Kong is stored in", options: ["TransUnion Limited", "Banks only", "Government only", "Employers"], answer: 0 },
+            { question: "If minimum payment is not made by due date, interest will be charged on", options: ["Any unpaid balances after the due date", "Only the minimum amount", "Total credit limit", "Annual fee"], answer: 0 },
             { question: "Ways to improve credit score include", statements: ["Make loan repayments on time", "Limit loan applications", "Keep outstanding debt low"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            
+            // Risk and Return
             { question: "Return on investment includes", statements: ["Periodic income (dividend, interest)", "Capital gain when selling at higher price"], options: ["(1) only", "(2) only", "(1) and (2)", "Neither"], answer: 2 },
             { question: "Risk is", options: ["Uncertainty of outcome", "Certain return", "Guaranteed profit", "Zero loss"], answer: 0 },
-            { question: "Most people are risk", options: ["Averse", "Loving", "Neutral", "Indifferent"], answer: 0 },
+            { question: "Most people are", options: ["Risk averse", "Risk loving", "Risk neutral", "Risk indifferent"], answer: 0 },
             { question: "Firm-specific risk is also called", options: ["Unsystematic risk", "Market risk", "Systematic risk", "Non-diversifiable risk"], answer: 0 },
             { question: "Market risk is also called", options: ["Systematic risk", "Unsystematic risk", "Firm-specific risk", "Diversifiable risk"], answer: 0 },
             { question: "Higher risk investments should bring", options: ["Higher expected return", "Lower expected return", "Same return", "No return"], answer: 0 },
             { question: "Which investment has highest risk and highest return?", options: ["Stocks/Shares", "Bonds", "Deposits", "Savings accounts"], answer: 0 },
-            { question: "Ordinary shareholders have", options: ["Voting rights", "Fixed dividend", "Guaranteed return", "No ownership"], answer: 0 },
+            { question: "Which investment has lowest risk and lowest return?", options: ["Savings deposits", "Stocks", "Bonds", "Mutual funds"], answer: 0 },
+            { question: "Ordinary shareholders have", options: ["Voting rights", "Fixed dividend", "Guaranteed return", "Priority in liquidation"], answer: 0 },
             { question: "Preference shareholders receive", options: ["Fixed dividend", "Variable dividend", "No dividend", "Capital gain only"], answer: 0 },
-            { question: "Bonds provide", options: ["Interest return and capital gain", "Only dividend", "Only voting rights", "Ownership"], answer: 0 },
-            { question: "MPF is a", options: ["Compulsory retirement protection system", "Optional savings scheme", "Investment fund", "Insurance product"], answer: 0 },
-            { question: "MPF mandatory contribution for employees earning above $30,000 is", options: ["$1,500", "$355", "$0", "$700"], answer: 0 },
+            
+            // Personal Financial Planning
+            { question: "Personal financial planning is a ___ process", options: ["Comprehensive", "Simple", "One-time", "Annual"], answer: 0 },
+            { question: "Areas of financial planning include", statements: ["Consumption planning", "Insurance planning", "Investment planning", "Retirement planning"], options: ["(1) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
+            { question: "The life cycle stages include", statements: ["Young single", "Just married", "Married with children", "Pre-retirement"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2), (3) and (4)"], answer: 3 },
+            
+            // MPF
+            { question: "MPF was launched in", options: ["December 2000", "January 2000", "December 1999", "January 2001"], answer: 0 },
+            { question: "MPF mandatory contribution for employees earning $30,000 and above is", options: ["$1,500", "$355", "$0", "$700"], answer: 0 },
             { question: "MPF benefits can be withdrawn at age", options: ["65", "60", "55", "70"], answer: 0 },
             { question: "Early withdrawal of MPF can be made for", statements: ["Early retirement at age 60", "Permanent departure from Hong Kong", "Total incapacity"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "MPF employees can", statements: ["Choose MPF funds", "Change funds once a year", "Bear investment risk"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "MPF employees aged 18 to 65 and employed for ___ days must join", options: ["60", "30", "90", "120"], answer: 0 },
+            
+            // Stock Trading
             { question: "Hang Seng Index is a", options: ["Stock market index", "Bond market index", "Commodity index", "Currency index"], answer: 0 },
-            { question: "Blue chip stocks refer to", options: ["Stocks of well-established companies", "New startup companies", "Government bonds", "Foreign stocks"], answer: 0 }
+            { question: "Blue chip stocks are", options: ["Stocks of well-established companies", "New startup companies", "Government bonds", "Foreign stocks"], answer: 0 },
+            { question: "Factors affecting share prices include", statements: ["Company performance", "Economic conditions", "Market sentiment"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Stock trading platforms in Hong Kong include", options: ["Hong Kong Stock Exchange", "New York Stock Exchange", "London Stock Exchange", "Tokyo Stock Exchange"], answer: 0 }
         ];
 
         function loadSubject(subject) {
@@ -385,7 +483,7 @@
             const container = document.getElementById('optionsContainer');
             container.innerHTML = '';
             
-            const existingFeedbackBtns = document.querySelectorAll('.answer-feedback');
+            const existingFeedbackBtns = document.querySelectorAll('.answer-feedback, .correct-answer-box, .your-answer-box');
             existingFeedbackBtns.forEach(el => el.remove());
             
             const hasAnswered = userAnswers[currentIndex] !== null;
@@ -394,17 +492,10 @@
                 const div = document.createElement('div');
                 div.className = 'option';
                 
-                // Always show correct answer after answering
-                if (i === q.answer) {
-                    div.classList.add('correct-answer');
-                }
+                if (i === q.answer) div.classList.add('correct-answer');
                 
                 if (hasAnswered && userAnswers[currentIndex] === i) {
-                    if (i === q.answer) {
-                        div.classList.add('correct-answer-selected');
-                    } else {
-                        div.classList.add('wrong-answer-selected');
-                    }
+                    if (i !== q.answer) div.classList.add('wrong-answer-selected');
                 }
                 
                 div.innerHTML = `<span class="option-letter">${String.fromCharCode(65 + i)}.</span><span class="option-text">${opt}</span>`;
@@ -424,7 +515,7 @@
                 const isCorrect = userAnswers[currentIndex] === q.answer;
                 feedbackHTML = `
                     <div class="answer-feedback ${isCorrect ? 'correct' : 'incorrect'}">
-                        ${isCorrect ? '✓ CORRECT! Well done!' : '✗ INCORRECT!'}
+                        ${isCorrect ? '✓ CORRECT!' : '✗ INCORRECT'}
                     </div>
                     <div class="correct-answer-box">
                         <strong>Correct Answer: ${String.fromCharCode(65 + q.answer)}. ${q.options[q.answer]}</strong>
