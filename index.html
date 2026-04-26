@@ -3,659 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BAFS Exam System - From Your Textbooks</title>
+    <title>BAFS Exam</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container { max-width: 900px; margin: 0 auto; }
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-        }
-        h1 { text-align: center; color: #333; margin-bottom: 10px; }
-        .subtitle { text-align: center; color: #666; margin-bottom: 20px; }
-        .subject-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .subject-card {
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-        }
-        .subject-card:hover {
-            border-color: #1e3c72;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .subject-icon { font-size: 3em; margin-bottom: 10px; }
-        .subject-title { font-size: 1.2em; font-weight: bold; color: #333; margin-bottom: 5px; }
-        .subject-count { color: #666; font-size: 0.9em; }
-        .question {
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-            line-height: 1.8;
-        }
-        .statement-list { margin-top: 15px; padding-left: 0; list-style: none; }
-        .statement-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 8px;
-            padding: 8px 12px;
-            background: #f0f4ff;
-            border-radius: 6px;
-            border-left: 3px solid #1e3c72;
-        }
-        .statement-label { font-weight: bold; color: #1e3c72; min-width: 35px; }
-        .statement-text { flex: 1; }
-        .options { display: flex; flex-direction: column; gap: 12px; }
-        .option {
-            display: flex;
-            align-items: flex-start;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            flex-direction: column;
-        }
-        .option:hover { border-color: #1e3c72; background: #f0f4ff; }
-        .option.selected { border-color: #1e3c72; background: #1e3c72; color: white; }
-        .option.correct-answer { border-color: #22c55e; background: #dcfce7; }
-        .option.wrong-answer-selected { border-color: #ef4444; background: #ef4444; color: white; }
-        .option-letter { font-weight: bold; font-size: 1.1em; margin-bottom: 8px; }
-        .option-text { white-space: pre-line; line-height: 1.6; }
-        .btn {
-            background: #1e3c72;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn:hover { background: #2a5298; transform: translateY(-2px); }
-        .btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-        .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
-        .btn-secondary { background: #666; }
-        .btn-secondary:hover { background: #555; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .card { background: white; border-radius: 16px; padding: 30px; margin-bottom: 20px; }
+        h1 { text-align: center; color: #333; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .box { border: 2px solid #ddd; border-radius: 12px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s; }
+        .box:hover { border-color: #1e3c72; background: #f0f4ff; transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .box-icon { font-size: 3em; margin-bottom: 10px; }
+        .box-title { font-size: 1.2em; font-weight: bold; color: #333; }
+        .hidden { display: none; }
+        .qnum { color: #666; margin: 15px 0; font-size: 1.1em; }
+        .question { font-size: 1.2em; font-weight: bold; margin-bottom: 20px; color: #333; line-height: 1.6; }
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        .opt { padding: 15px 20px; border: 2px solid #e0e0e0; border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .opt:hover { border-color: #1e3c72; background: #f0f4ff; }
+        .opt.correct { background: #dcfce7; border-color: #22c55e; color: #166534; }
+        .opt.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+        .opt-letter { font-weight: bold; min-width: 25px; }
+        .opt-text { flex: 1; }
+        .feedback { padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; margin-top: 15px; }
+        .feedback.correct { background: #dcfce7; color: #22c55e; }
+        .feedback.wrong { background: #fee2e2; color: #ef4444; }
+        .btn-group { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .btn { padding: 12px 24px; background: #1e3c72; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; transition: all 0.3s; }
+        .btn:hover { background: #2a5298; }
         .btn-back { background: #e0e0e0; color: #333; }
         .btn-back:hover { background: #ccc; }
-        .progress-bar { background: #e0e0e0; border-radius: 10px; height: 10px; margin-bottom: 20px; overflow: hidden; }
-        .progress-fill { background: linear-gradient(90deg, #1e3c72, #2a5298); height: 100%; transition: width 0.3s; }
-        .progress-text { text-align: center; color: #666; margin-bottom: 10px; }
-        .result-card { text-align: center; }
+        .result { text-align: center; }
         .score { font-size: 4em; font-weight: bold; background: linear-gradient(135deg, #1e3c72, #2a5298); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .score-details { color: #666; font-size: 1.2em; margin: 20px 0; }
-        .hidden { display: none; }
-        .answer-feedback {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .answer-feedback.correct { background: #dcfce7; color: #22c55e; border: 2px solid #22c55e; }
-        .answer-feedback.incorrect { background: #fee2e2; color: #ef4444; border: 2px solid #ef4444; }
-        .correct-answer-box {
-            margin-top: 10px;
-            padding: 12px;
-            background: #dcfce7;
-            border: 2px solid #22c55e;
-            border-radius: 8px;
-            color: #166534;
-            font-size: 1em;
-            text-align: center;
-        }
-        .your-answer-box {
-            margin-top: 8px;
-            padding: 10px;
-            background: #fee2e2;
-            border: 2px solid #ef4444;
-            border-radius: 8px;
-            color: #991b1b;
-            font-size: 0.95em;
-            text-align: center;
-        }
-        .badge { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 0.8em; font-weight: bold; }
-        .badge-business { background: #3b82f6; color: white; }
-        .badge-management { background: #10b981; color: white; }
-        .badge-financial { background: #f59e0b; color: white; }
-        .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .topic-tag { font-size: 0.8em; color: #888; margin-bottom: 5px; }
+        .score-detail { color: #666; font-size: 1.2em; margin: 20px 0; }
+        .badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; font-weight: bold; color: white; margin-bottom: 20px; }
+        .badge-be { background: #3b82f6; }
+        .badge-im { background: #10b981; }
+        .badge-pfm { background: #f59e0b; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card" id="subjectScreen">
-            <h1>BAFS Exam System</h1>
-            <p class="subtitle">Questions Based on Your Textbook Content</p>
-            
-            <div class="subject-grid">
-                <div class="subject-card" onclick="loadSubject('business-environment')">
-                    <div class="subject-icon">🏢</div>
-                    <div class="subject-title">Business Environment</div>
-                    <div class="subject-count">50 questions</div>
-                    <div class="topic-tag">Vol. 1: HK Economy, CEPA, WTO, Business Ownership, Ethics</div>
-                </div>
-                <div class="subject-card" onclick="loadSubject('introduction-to-management')">
-                    <div class="subject-icon">⚙️</div>
-                    <div class="subject-title">Introduction to Management</div>
-                    <div class="subject-count">50 questions</div>
-                    <div class="topic-tag">Vol. 2: Planning, Organizing, Leading, Controlling, Business Functions</div>
-                </div>
-                <div class="subject-card" onclick="loadSubject('personal-financial-management')">
-                    <div class="subject-icon">💰</div>
-                    <div class="subject-title">Personal Financial Management</div>
-                    <div class="subject-count">50 questions</div>
-                    <div class="topic-tag">Vol. 3: Time Value, NPV, Consumer Credit, Risk, MPF</div>
-                </div>
-                <div class="subject-card" onclick="loadSubject('all')">
-                    <div class="subject-icon">🎯</div>
-                    <div class="subject-title">All Subjects</div>
-                    <div class="subject-count">150 questions</div>
-                </div>
+        <div class="card" id="home">
+            <h1>BAFS Exam</h1>
+            <div class="grid">
+                <div class="box" onclick="go('be')"><div class="box-icon">🏢</div><div class="box-title">Business Environment</div>24 questions</div>
+                <div class="box" onclick="go('im')"><div class="box-icon">⚙️</div><div class="box-title">Introduction to Management</div>24 questions</div>
+                <div class="box" onclick="go('pfm')"><div class="box-icon">💰</div><div class="box-title">Personal Financial Management</div>24 questions</div>
+                <div class="box" onclick="go('all')"><div class="box-icon">🎯</div><div class="box-title">All Subjects</div>72 questions</div>
             </div>
         </div>
-
-        <div class="card hidden" id="examScreen">
-            <div class="nav-header">
-                <button class="btn btn-back" onclick="showSubjects()">← Back</button>
-                <span class="badge" id="subjectBadge">Business Environment</span>
-            </div>
-            <div class="progress-text">Question <span id="currentNum">1</span> of <span id="totalNum">35</span></div>
-            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-            <div class="question" id="questionText"></div>
-            <div class="options" id="optionsContainer"></div>
-            <div class="btn-group" id="navButtons">
-                <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" disabled>← Previous</button>
-                <button class="btn" id="nextBtn" onclick="nextQuestion()">Next →</button>
-                <button class="btn" id="submitBtn" onclick="submitExam()" style="display: none;">Submit</button>
-            </div>
+        <div class="card hidden" id="exam">
+            <button class="btn btn-back" onclick="home()">← Back</button>
+            <span class="badge" id="badge" style="margin-left:10px"></span>
+            <div class="qnum">Question <span id="n">1</span> of <span id="t">24</span></div>
+            <div class="question" id="q"></div>
+            <div class="options" id="opts"></div>
         </div>
-
-        <div class="card result-card hidden" id="resultScreen">
-            <h1>🎉 Exam Complete!</h1>
-            <span class="badge" id="resultBadge" style="margin-bottom: 20px;"></span>
-            <div class="score" id="scoreDisplay">0%</div>
-            <div class="score-details" id="scoreDetails"></div>
-            <div class="btn-group">
-                <button class="btn" onclick="restartExam()">Try Again</button>
-                <button class="btn btn-secondary" onclick="showSubjects()">Choose Subject</button>
-            </div>
+        <div class="card hidden result" id="result">
+            <h1>Exam Complete!</h1>
+            <span class="badge" id="badge2"></span>
+            <div class="score" id="s"></div>
+            <div class="score-detail" id="d"></div>
+            <br>
+            <button class="btn" onclick="retry()">Try Again</button>
+            <button class="btn btn-back" onclick="home()">Home</button>
         </div>
     </div>
-
     <script>
-        let questions = [];
-        let allQuestions = {};
-        let currentIndex = 0;
-        let userAnswers = [];
-        let currentSubject = '';
-
-        const subjectNames = {
-            'business-environment': 'Business Environment',
-            'introduction-to-management': 'Introduction to Management',
-            'personal-financial-management': 'Personal Financial Management',
-            'all': 'All Subjects'
+        var qs = [], i = 0, ans = [], subj = '', data = {
+            be: [
+                {q: "Business refers to", o: ["The activity of producing, buying, selling or supplying goods or services for money", "Only manufacturing activities", "Only government activities", "Only retail activities"], a: 0},
+                {q: "The primary sector involves", o: ["Direct extraction of natural resources", "Processing raw materials into goods", "Provision of services", "Selling goods in stores"], a: 0},
+                {q: "Tertiary sector is also known as", o: ["Service sector", "Agriculture sector", "Manufacturing sector", "Construction sector"], a: 0},
+                {q: "Four Pillar Industries in Hong Kong include", o: ["Financial Services, Trading and logistics, Tourism, Producer and professional services", "(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)"], a: 0},
+                {q: "GDP measures", o: ["Total value of output produced in an economy", "Total government spending", "Total exports minus imports", "Total population"], a: 0},
+                {q: "Hong Kong maintains", o: ["No trade barriers (no tariff and quota)", "High tariff rates", "Import quotas", "Protectionist policies"], a: 0},
+                {q: "Hong Kong tax system is", o: ["Simple with low tax rate", "Complex with high rates", "Based on sales tax", "Progressive only"], a: 0},
+                {q: "Hong Kong lacks", o: ["Arable land and natural resources", "Financial services", "Trading companies", "Tourism industry"], a: 0},
+                {q: "Tertiary sector contributes about ___ of Hong Kong GDP", o: ["90%", "50%", "70%", "30%"], a: 0},
+                {q: "Hong Kong follows ___ policies", o: ["Small government, laissez-faire", "Protectionist policies", "Socialist policies", "Communist policies"], a: 0},
+                {q: "CEPA was signed in", o: ["2003", "1995", "2000", "1990"], a: 0},
+                {q: "Under CEPA, tariffs are not levied on goods originating in", o: ["Hong Kong exported to Mainland", "Mainland exported to Hong Kong", "Both directions equally", "Neither direction"], a: 0},
+                {q: "CEPA Trade in Services gives Hong Kong service suppliers", o: ["Preferential treatment when setting up business in Mainland", "Tax exemptions globally", "Free trade rights worldwide", "Government grants"], a: 0},
+                {q: "Hong Kong exports services to China such as", o: ["Financial and business services", "Agricultural services", "Mining services", "Manufacturing services"], a: 0},
+                {q: "WTO was set up in", o: ["1995", "1989", "2000", "1985"], a: 0},
+                {q: "The purpose of WTO is to", o: ["Promote free trade by reducing barriers", "Increase trade barriers", "Control product prices", "Regulate currencies"], a: 0},
+                {q: "WTO provides a forum for", o: ["Negotiations to reduce obstacles to trade", "Setting national tax rates", "Controlling exchange rates", "Regulating stock markets"], a: 0},
+                {q: "APEC was founded in", o: ["1989", "1995", "2000", "1990"], a: 0},
+                {q: "APEC's decisions are", o: ["Reached by consensus; voluntary basis", "Legally binding on all members", "Mandatory for compliance", "Set by majority vote only"], a: 0},
+                {q: "Which organization requires no treaty obligations?", o: ["APEC", "WTO", "UN", "EU"], a: 0},
+                {q: "When establishing a business, a businessman cares about", o: ["Lower production costs, Higher sales revenue, Lower investment risk", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Higher interest rate leads to", o: ["Higher cost of capital", "Lower production cost", "Higher sales revenue", "Lower profit tax"], a: 0},
+                {q: "Social factors include", o: ["Population size and structure, Taste and preference of customers, Religion of majority people", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Physical factors include", o: ["Natural resources possessed, Infrastructure and transport networks, Climate and air quality", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Higher political stability leads to", o: ["Less risky investment environment", "Higher business risk", "More government regulations", "Lower profits"], a: 0},
+                {q: "Legal factors include", o: ["Existence of sound legal system, Minimum wage Ordinance, Labor laws", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "A sole proprietorship has", o: ["Only one owner, The firm is not a legal entity, Owner bears unlimited liability", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "The profit tax rate for sole proprietorship is", o: ["15%", "16.5%", "17%", "7.5%"], a: 0},
+                {q: "Partnership has ___ or more owners", o: ["2", "3", "5", "10"], a: 0},
+                {q: "General partners bear", o: ["Unlimited liability", "Limited liability", "No liability", "Partial liability"], a: 0},
+                {q: "Limited partners' maximum loss is", o: ["Confined to the amount of their investment", "All their personal assets", "Half of their assets", "No limit"], a: 0},
+                {q: "A private limited company has shareholders ranging from", o: ["1 to 50", "1 to 100", "2 to 100", "No limit"], a: 0},
+                {q: "Shareholders of a private limited company bear", o: ["Limited liability", "Unlimited liability", "No liability", "Joint liability"], a: 0},
+                {q: "A private limited company is a", o: ["Legal entity", "Not a legal entity", "Government entity", "Non-profit organization"], a: 0},
+                {q: "Shares of a private limited company", o: ["Cannot be traded in stock market", "Can be freely traded", "Are listed on stock exchange", "Have no restrictions"], a: 0},
+                {q: "A public limited company has", o: ["No upper limit on number of shareholders", "Maximum 50 shareholders", "Maximum 100 shareholders", "Exactly 10 shareholders"], a: 0},
+                {q: "Public limited company shares are", o: ["Freely transferrable", "Restricted to existing shareholders", "Not transferable", "Only transferable with consent"], a: 0},
+                {q: "Which business ownership has longest business continuity?", o: ["Private/Public limited company", "Sole proprietorship", "Partnership", "All have same"], a: 0},
+                {q: "Which form needs to disclose financial accounts to the public?", o: ["Public limited company", "Private limited company", "Sole proprietorship", "Partnership"], a: 0},
+                {q: "Business ethics are", o: ["Principles, values and beliefs guiding business behavior", "Government laws only", "Tax regulations only", "Product standards only"], a: 0},
+                {q: "Social responsibility refers to", o: ["Responsibility of a firm to society and all its stakeholders", "Maximizing profits only", "Avoiding taxes", "Reducing employees"], a: 0},
+                {q: "Stakeholders of a firm include", o: ["Owners and shareholders, Employees and customers, Government and community", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Ways to enhance business ethics include", o: ["Emphasizing importance in recruitment, Compiling a code of ethics, Providing education and training", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Benefits of being socially responsible include", o: ["Better business reputation, Attract customers, Raise staff loyalty", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Global sourcing helps firms to", o: ["Reduce production cost of goods", "Increase prices", "Reduce quality", "Limit market reach"], a: 0},
+                {q: "Outsourcing helps firms to", o: ["Reduce cost by moving to lower cost locations", "Increase workforce", "Reduce competition", "Increase quality"], a: 0},
+                {q: "Globalization increases", o: ["Competition for local firms", "Market monopoly", "Government control", "Trade barriers"], a: 0},
+                {q: "Nominal partner", o: ["Does not invest and cannot participate in management", "Is a real owner", "Has unlimited liability", "Can make decisions"], a: 0},
+                {q: "Public limited company profit tax rate is", o: ["16.5%", "15%", "17%", "10%"], a: 0},
+                {q: "Division of work means", o: ["Breaking down production into different tasks", "Hiring more workers", "Increasing salaries", "Reducing hours"], a: 0},
+                {q: "Unity of command means", o: ["Each worker takes orders from only one superior", "All workers do the same job", "One worker supervises all", "Workers choose tasks"], a: 0}
+            ],
+            im: [
+                {q: "Management is the process to accomplish goals through", o: ["Planning, Organizing, Leading, Controlling", "(1) only", "(1) and (2) only", "(2), (3) and (4)"], a: 0},
+                {q: "The importance of management includes", o: ["Enhance efficiency use of resources, Help staff achieve goals effectively", "(1) only", "(2) only", "Neither"], a: 0},
+                {q: "Efficiency means", o: ["Doing the thing right", "Doing the right thing", "Making maximum profit", "Reducing all costs"], a: 0},
+                {q: "Effectiveness means", o: ["Doing the right thing to achieve goals", "Working fast", "Following rules", "Minimizing costs"], a: 0},
+                {q: "Planning is", o: ["Deciding in advance what to do and how to do", "Directing employees", "Controlling expenses", "Organizing resources"], a: 0},
+                {q: "SMART goals include", o: ["Specific and Measurable, Attainable and Relevant, Time-based", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Process of planning includes", o: ["Identify company's goals, Figure out alternatives, Evaluate and decide", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Benefits of setting goals include", o: ["Provide clear directions, Help control progress, Monitor performance", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Top management determines", o: ["The company's overall goals and direction", "Daily operations", "Customer complaints", "Worker schedules"], a: 0},
+                {q: "Middle management", o: ["Acts as bridge between top and front-line", "Makes strategic decisions", "Handles customer complaints", "Supervises workers directly"], a: 0},
+                {q: "Front-line managers are responsible for", o: ["Daily operation of the business", "Strategic decisions", "Company policies", "Overall direction"], a: 0},
+                {q: "Flat organizational structure has", o: ["Fewer levels of management, Wider span of control, Shorter decision-making process", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Tall organizational structure has", o: ["More levels and narrower span of control", "Fewer levels", "Wider span of control", "Faster decision making"], a: 0},
+                {q: "Span of control refers to", o: ["Number of subordinates reporting to a manager", "Number of managers", "Level of hierarchy", "Budget size"], a: 0},
+                {q: "Departmentalization by geographical location is used by", o: ["Multinational corporations", "Small local stores", "Family businesses", "Single-product companies"], a: 0},
+                {q: "Leading refers to", o: ["Guiding, directing, and motivating people", "Allocating work", "Setting standards", "Evaluating performance"], a: 0},
+                {q: "Autocratic leadership", o: ["Leaders make almost all decisions, Little input from group members, Work is highly structured", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Democratic leadership", o: ["Leaders invite input from employees, Staff are given information, Majority vote in decisions", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Laissez-faire leadership leads to", o: ["Lowest productivity", "Highest productivity", "Moderate productivity", "No effect on productivity"], a: 0},
+                {q: "Autocratic leadership is suitable when", o: ["Subordinates are inexperienced, Need to make quick decisions, Subordinates do routine tasks", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Controlling is", o: ["Monitoring activities to ensure they are done as planned", "Hiring new employees", "Setting goals", "Organizing resources"], a: 0},
+                {q: "Process of controlling includes", o: ["Setting performance standards, Measuring actual performance, Taking corrective actions", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Performance standards are used to", o: ["Evaluate a worker's performance", "Set salaries", "Hire employees", "Design products"], a: 0},
+                {q: "Corrective actions are taken when", o: ["Actual performance falls outside acceptable range", "Everything is going well", "Employees are satisfied", "Sales are high"], a: 0},
+                {q: "Division of work increases", o: ["Workers' productivity", "Production costs", "Management layers", "Company debt"], a: 0},
+                {q: "Unity of command means", o: ["Each worker takes orders from only one superior", "All workers do the same job", "One worker supervises all", "Workers choose tasks"], a: 0},
+                {q: "Unity of direction means", o: ["Employees on same project have same goal", "Only one manager in company", "Single product line only", "One department"], a: 0},
+                {q: "Delegation is effective when", o: ["Authority delegated in line with responsibility, Delegating to capable subordinates, Providing sufficient resources", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Barrier to delegation includes", o: ["Supervisors lack confidence on subordinates", "Managers have too much authority", "Employees want more responsibility", "Resources are plenty"], a: 0},
+                {q: "Human resources management tasks include", o: ["Recruit and select staff, Provide training, Conduct performance appraisal", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Finance management is responsible for", o: ["Develop financial plans and budgets, Monitor cash inflow and outflow, Assess investment projects", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Operations management involves", o: ["Plan for production capacity, Design production process, Manage inventory", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Marketing management includes", o: ["Identify market opportunities, Determine market position, Select target market", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "The 4P model in marketing includes", o: ["Product, Price, Place, Promotion", "(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)"], a: 0},
+                {q: "Information management is", o: ["Not equal to ICT only", "Equal to ICT", "Only for IT companies", "Not important"], a: 0},
+                {q: "Risk management strategies include", o: ["Risk avoidance, Risk assumption, Risk reduction, Risk transfer", "(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)"], a: 0},
+                {q: "Risk avoidance means", o: ["Complete elimination of the risk of loss", "Bearing the risk", "Reducing the risk", "Transferring the risk"], a: 0},
+                {q: "SMEs in Hong Kong (manufacturing) employ", o: ["Fewer than 100 persons", "More than 500 persons", "Exactly 100 persons", "More than 200 persons"], a: 0},
+                {q: "SMEs in Hong Kong (non-manufacturing) employ", o: ["Fewer than 50 persons", "Fewer than 100 persons", "More than 100 persons", "Exactly 50 persons"], a: 0},
+                {q: "SMEs are usually managed by", o: ["Owners and family members", "Professional managers", "Government", "Stockholders"], a: 0},
+                {q: "SMEs usually have", o: ["Limited capital and resources", "Unlimited resources", "Large production scale", "Professional managers"], a: 0},
+                {q: "MNCs are usually managed by", o: ["Professional managers", "Owners directly", "Government", "Employees"], a: 0},
+                {q: "Entrepreneurs are people who", o: ["Take risks to start a business for profits", "Work for large companies", "Avoid business activities", "Only invest in stocks"], a: 0},
+                {q: "Importance of entrepreneurship includes", o: ["Brings innovative products, Promotes economic growth, Creates competition", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "SMEs contribute to Hong Kong by", o: ["Providing unique products, Creating employment, Introducing new products", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Pros of flat structure include", o: ["Improve communication, Faster decision making, Increase flexibility", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Factors affecting leadership style include", o: ["Nature of task, Time available, Workers' ability", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "A specific goal should avoid", o: ["Using general terms", "Using numbers", "Using clear time frame", "Using measurable criteria"], a: 0},
+                {q: "Measuring actual performance requires", o: ["Collecting information in numbers", "Writing reports only", "Verbal discussions only", "Employee surveys only"], a: 0}
+            ],
+            pfm: [
+                {q: "Time value of money means", o: ["A dollar received today is worth more than future", "Money loses value every year", "Interest rates are always high", "Inflation is good for savers"], a: 0},
+                {q: "Future Value (FV) formula is", o: ["PV × (1 + r)^n", "FV / (1 + r)^n", "PV × r × n", "PV / (1 + r)"], a: 0},
+                {q: "Present Value (PV) formula is", o: ["FV / (1 + r)^n", "PV × (1 + r)^n", "FV × r × n", "PV / r"], a: 0},
+                {q: "Compounding means", o: ["Interest is reinvested to earn further return", "Principal is decreased", "Only interest is paid", "Money is withdrawn"], a: 0},
+                {q: "Discounting is the process of", o: ["Finding present value of future cash flow", "Finding future value", "Calculating interest only", "Tax calculation"], a: 0},
+                {q: "If compounding frequency is higher, effective rate is", o: ["Higher", "Lower", "Same", "Zero"], a: 0},
+                {q: "The more frequently interest is compounded, the", o: ["Larger the sum received at the end", "Smaller the sum received", "Same sum regardless", "Lower the interest rate"], a: 0},
+                {q: "NPV stands for", o: ["Net Present Value", "New Present Value", "Net Profit Value", "Normal Present Value"], a: 0},
+                {q: "NPV =", o: ["PV of future cash inflows - Initial outflow", "FV - PV", "Total revenue - Total cost", "Interest - Principal"], a: 0},
+                {q: "If NPV is positive, the firm should", o: ["Buy the machine (favorable investment)", "Not buy the machine", "Sell the machine", "Do nothing"], a: 0},
+                {q: "If NPV is negative, the firm should", o: ["Not buy the machine (unfavorable)", "Buy the machine", "Borrow more money", "Hire more workers"], a: 0},
+                {q: "If NPV equals zero, the firm is", o: ["Indifferent about buying or not", "Should definitely buy", "Should definitely not buy", "Profitable"], a: 0},
+                {q: "Nominal interest rate is", o: ["Rate stated on financial instruments", "Actual interest received", "Effective rate of return", "Inflation rate"], a: 0},
+                {q: "Effective interest rate reflects", o: ["Effect of frequency of compounding", "Nominal rate only", "Bank fees", "Tax charges"], a: 0},
+                {q: "If interest is compounded quarterly, effective rate is", o: ["Higher than annual compounding", "Lower than annual compounding", "Same as annual compounding", "Zero"], a: 0},
+                {q: "Consumer credit is", o: ["Arrangement to receive goods/services first and pay later", "Cash payment only", "Savings account", "Investment product"], a: 0},
+                {q: "Credit cards have", o: ["A credit limit set, Minimum payment requirement, Interest charged on unpaid balance", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Credit record in Hong Kong is stored in", o: ["TransUnion Limited", "Banks only", "Government only", "Employers"], a: 0},
+                {q: "If minimum payment is not made by due date, interest is charged on", o: ["Any unpaid balances after the due date", "Only the minimum amount", "Total credit limit", "Annual fee"], a: 0},
+                {q: "Ways to improve credit score include", o: ["Make loan repayments on time, Limit loan applications, Keep outstanding debt low", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Return on investment includes", o: ["Periodic income (dividend, interest), Capital gain when selling at higher price", "(1) only", "(2) only", "(1) and (2)"], a: 2},
+                {q: "Risk is", o: ["Uncertainty of outcome", "Certain return", "Guaranteed profit", "Zero loss"], a: 0},
+                {q: "Most people are", o: ["Risk averse", "Risk loving", "Risk neutral", "Risk indifferent"], a: 0},
+                {q: "Firm-specific risk is also called", o: ["Unsystematic risk", "Market risk", "Systematic risk", "Non-diversifiable risk"], a: 0},
+                {q: "Market risk is also called", o: ["Systematic risk", "Unsystematic risk", "Firm-specific risk", "Diversifiable risk"], a: 0},
+                {q: "Higher risk investments should bring", o: ["Higher expected return", "Lower expected return", "Same return", "No return"], a: 0},
+                {q: "Which investment has highest risk and highest return?", o: ["Stocks/Shares", "Bonds", "Deposits", "Savings accounts"], a: 0},
+                {q: "Which investment has lowest risk and lowest return?", o: ["Savings deposits", "Stocks", "Bonds", "Mutual funds"], a: 0},
+                {q: "Ordinary shareholders have", o: ["Voting rights", "Fixed dividend", "Guaranteed return", "Priority in liquidation"], a: 0},
+                {q: "Preference shareholders receive", o: ["Fixed dividend", "Variable dividend", "No dividend", "Capital gain only"], a: 0},
+                {q: "Personal financial planning is a ___ process", o: ["Comprehensive", "Simple", "One-time", "Annual"], a: 0},
+                {q: "Areas of financial planning include", o: ["Consumption planning, Insurance planning, Investment planning, Retirement planning", "(1) only", "(1), (2) and (3)", "(2), (3) and (4)"], a: 0},
+                {q: "Life cycle stages include", o: ["Young single, Just married, Married with children, Pre-retirement", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "MPF was launched in", o: ["December 2000", "January 2000", "December 1999", "January 2001"], a: 0},
+                {q: "MPF mandatory contribution for employees earning $30,000+ is", o: ["$1,500", "$355", "$0", "$700"], a: 0},
+                {q: "MPF benefits can be withdrawn at age", o: ["65", "60", "55", "70"], a: 0},
+                {q: "Early withdrawal of MPF can be made for", o: ["Early retirement at age 60, Permanent departure from Hong Kong, Total incapacity", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "MPF employees can", o: ["Choose MPF funds, Change funds once a year, Bear investment risk", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "MPF employees aged 18 to 65 and employed for ___ days must join", o: ["60", "30", "90", "120"], a: 0},
+                {q: "MPF voluntary contributions are", o: ["Not tax deductible", "Tax deductible", "Required", "Only for employers"], a: 0},
+                {q: "Who chooses the MPF trustee?", o: ["Employer", "Employee", "Government", "Insurance company"], a: 0},
+                {q: "Hang Seng Index is a", o: ["Stock market index", "Bond market index", "Commodity index", "Currency index"], a: 0},
+                {q: "Blue chip stocks are", o: ["Stocks of well-established companies", "New startup companies", "Government bonds", "Foreign stocks"], a: 0},
+                {q: "Factors affecting share prices include", o: ["Company performance, Economic conditions, Market sentiment", "(1) only", "(1) and (2) only", "(2) and (3) only"], a: 0},
+                {q: "Ordinary shares represent", o: ["Ownership in a company", "A loan to a company", "A guarantee of returns", "A fixed deposit"], a: 0},
+                {q: "Bonds provide", o: ["Interest return and capital gain", "Only dividend", "Only voting rights", "Ownership"], a: 0},
+                {q: "Unsystematic risk can be reduced by", o: ["Diversification", "Higher leverage", "More debt", "Less investment"], a: 0},
+                {q: "Systematic risk cannot be reduced by", o: ["Diversification", "Asset allocation", "Portfolio diversification", "None of the above"], a: 0},
+                {q: "Effective rate formula is", o: ["(1 + r/m)^m - 1", "r × m", "r / m", "r + m"], a: 0},
+                {q: "Credit card operators include", o: ["Visa, MasterCard, American Express", "Only banks", "Only government", "Only retailers"], a: 0}
+            ]
         };
-
-        const subjectBadge = {
-            'business-environment': 'badge-business',
-            'introduction-to-management': 'badge-management',
-            'personal-financial-management': 'badge-financial',
-            'all': 'badge-business'
-        };
-
-        // ==================== BUSINESS ENVIRONMENT (From Vol.1) ====================
-        allQuestions['business-environment'] = [
-            // Topic 1: Roles of Business in HK
-            { question: "Business refers to", options: ["The activity of producing, buying, selling or supplying goods or services for money", "Only manufacturing activities", "Only retail activities", "Only government activities"], answer: 0 },
-            { question: "The primary sector involves", options: ["Direct extraction of natural resources", "Processing raw materials", "Provision of services", "Selling goods only"], answer: 0 },
-            { question: "Which of the following is an example of tertiary sector?", statements: ["Farming", "Mining", "Financial services", "Construction"], options: ["(1) only", "(3) only", "(1) and (2) only", "(1), (2) and (3)"], answer: 1 },
-            { question: "Business sector in Hong Kong employed more than ___ of the labour force", options: ["50%", "70%", "90%", "100%"], answer: 2 },
-            { question: "Business contributes to Hong Kong by", statements: ["Providing job opportunities", "Producing income for people", "Promoting economic growth"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Revenue for Hong Kong government from business includes", statements: ["Profits tax", "Land sales", "Stamp duties"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            
-            // Topic 2: Characteristics of HK Economy
-            { question: "Which of the following is a characteristic of Hong Kong economy?", statements: ["Lack of primary industries", "Concentration on tertiary industry", "Pursue free trade with no trade barriers"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Four Pillar Industries in Hong Kong include", statements: ["Financial Services", "Trading and logistics", "Tourism", "Producer and professional services"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "GDP measures", options: ["Total value of output produced in an economy in a given period", "Total government revenue", "Total exports", "Total population"], answer: 0 },
-            { question: "Hong Kong maintains", options: ["No trade barriers (no tariff and quota)", "High tariff rates", "Import quotas", "Protectionist policies"], answer: 0 },
-            { question: "Hong Kong has a", options: ["Simple tax system with low tax rate", "Complex tax system", "High sales tax", "Capital gain tax"], answer: 0 },
-            { question: "Hong Kong lacks", options: ["Arable land and natural resources", "Financial services", "Trading companies", "Tourism"], answer: 0 },
-            { question: "Tertiary sector contributes around ___ of Hong Kong GDP", options: ["90%", "50%", "70%", "30%"], answer: 0 },
-            { question: "Hong Kong follows ___ policies", options: ["Small government, laissez-faire", "Protectionist", "Socialist", "Communist"], answer: 0 },
-            
-            // Topic 3: CEPA
-            { question: "CEPA was signed in", options: ["2003", "1995", "2000", "1990"], answer: 0 },
-            { question: "CEPA includes", statements: ["Trade in Goods", "Trade in Services", "Investment", "Economic and technical cooperation"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "Under CEPA, tariffs are not levied on goods originating in", options: ["Hong Kong exported to Mainland", "Mainland exported to Hong Kong", "Both directions", "Neither direction"], answer: 0 },
-            { question: "CEPA Trade in Services gives Hong Kong service suppliers", options: ["Preferential treatment when setting up business in Mainland", "Tax exemptions", "Free trade rights", "Government grants"], answer: 0 },
-            { question: "Mutual Recognition of Professional Qualifications under CEPA includes", statements: ["Construction and Engineering Services", "Securities and Futures Services", "Insurance Services", "All of the above"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Hong Kong exports services to China including", options: ["Financial and business services", "Manufacturing services", "Agricultural services", "Mining services"], answer: 0 },
-            { question: "Hong Kong acts as a ___ for Mainland China enterprises", options: ["Fund raising center", "Manufacturing center", "Agricultural center", "Mining center"], answer: 0 },
-            
-            // Topic 4: Globalization
-            { question: "Major impacts of globalization include", statements: ["Intensified global competition", "Increasing international flow of capital", "Increasing technology transfer"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Global sourcing helps firms to", options: ["Reduce production cost of goods", "Increase prices", "Reduce quality", "Limit market reach"], answer: 0 },
-            { question: "Outsourcing helps firms to", options: ["Reduce production cost by moving to lower cost locations", "Increase workforce", "Reduce competition", "Increase quality"], answer: 0 },
-            { question: "Well-developed telecommunication network", options: ["Lowers information cost and marketing cost", "Increases production cost", "Reduces sales", "Limits international trade"], answer: 0 },
-            { question: "Globalization increases", options: ["Competition for local firms", "Market monopoly", "Government control", "Trade barriers"], answer: 0 },
-            
-            // Topic 5: WTO and APEC
-            { question: "WTO was set up in", options: ["1995", "1989", "2000", "1990"], answer: 0 },
-            { question: "The purpose of WTO is to", options: ["Promote free trade by persuading countries to abolish import tariffs", "Increase trade barriers", "Control prices", "Regulate currencies"], answer: 0 },
-            { question: "WTO provides a forum for", options: ["Negotiations aimed at reducing obstacles to international trade", "Setting tax rates", "Controlling exchange rates", "Regulating stock markets"], answer: 0 },
-            { question: "APEC was founded in", options: ["1989", "1995", "2000", "1990"], answer: 0 },
-            { question: "APEC's decisions are", options: ["Reached by consensus; commitments made on voluntary basis", "Legally binding", "Mandatory for all members", "Set by majority vote"], answer: 0 },
-            { question: "WTO has the power to", options: ["Impose trade sanctions if members fail to comply", "Set national tax rates", "Control exchange rates", "Regulate stock exchanges"], answer: 0 },
-            { question: "APEC aims to build a dynamic and harmonious", options: ["Asia-Pacific community", "World government", "European union", "African union"], answer: 0 },
-            { question: "Which organization requires no treaty obligations?", options: ["APEC", "WTO", "UN", "EU"], answer: 0 },
-            
-            // Topic 6: Factors affecting business decisions
-            { question: "When establishing a business, a businessman cares about", statements: ["Lower production costs", "Higher sales revenue", "Lower investment risk"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Economic factors include", statements: ["General economic conditions", "Income level of people", "Market interest rate"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Higher interest rate leads to", options: ["Higher cost of capital", "Lower production cost", "Higher sales revenue", "Lower profit tax"], answer: 0 },
-            { question: "Social factors include", statements: ["Population size", "Taste and preference of customers", "Religion of the majority people"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Physical factors include", statements: ["Natural resources possessed", "Infrastructure and transport networks", "Climate and air quality"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Higher political stability leads to", options: ["Less risky investment environment", "Higher business risk", "More regulations", "Lower profits"], answer: 0 },
-            { question: "Legal factors include", statements: ["Existence of sound legal system", "Minimum wage Ordinance", "Fire Services Ordinance"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Technological factors affect", options: ["Training cost and productivity", "Tax rates", "Political stability", "Government policies"], answer: 0 },
-            { question: "Well-developed transportation network leads to", options: ["Lower transportation cost", "Higher production cost", "More regulations", "Lower sales"], answer: 0 },
-            
-            // Topic 7: Forms of Business Ownership
-            { question: "A sole proprietorship has", statements: ["Only one owner", "The firm is not a legal entity", "The owner bears unlimited liability"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "The profit tax rate for sole proprietorship is", options: ["15%", "16.5%", "17.5%", "7.5%"], answer: 0 },
-            { question: "Partnership has ___ or more owners", options: ["2", "3", "4", "5"], answer: 0 },
-            { question: "General partners bear", options: ["Unlimited liability", "Limited liability", "No liability", "Partial liability"], answer: 0 },
-            { question: "Limited partners' maximum loss is", options: ["Confined to the amount of their investment", "All their personal assets", "Half of their assets", "No limit"], answer: 0 },
-            { question: "A private limited company has shareholders ranging from", options: ["1 to 50", "1 to 100", "2 to 50", "No limit"], answer: 0 },
-            { question: "Shareholders of a private limited company bear", options: ["Limited liability", "Unlimited liability", "No liability", "Joint liability"], answer: 0 },
-            { question: "A private limited company is a", options: ["Legal entity", "Not a legal entity", "Government entity", "Non-profit organization"], answer: 0 },
-            { question: "Shares of a private limited company", options: ["Cannot be traded in stock market", "Can be freely traded", "Are listed on stock exchange", "Have no restrictions"], answer: 0 },
-            { question: "A public limited company has", options: ["No upper limit on number of shareholders", "Maximum 50 shareholders", "Maximum 100 shareholders", "Exactly 10 shareholders"], answer: 0 },
-            { question: "Public limited company shares are", options: ["Freely transferrable", "Restricted to existing shareholders", "Not transferable", "Only transferable with consent"], answer: 0 },
-            { question: "Which business ownership has longest business continuity?", options: ["Private/Public limited company", "Sole proprietorship", "Partnership", "All have same"], answer: 0 },
-            { question: "Which form needs to disclose financial accounts to the public?", options: ["Public limited company", "Private limited company", "Sole proprietorship", "Partnership"], answer: 0 },
-            { question: "A sole proprietorship is easy to", options: ["Set up and dissolve", "Raise capital", "Transfer ownership", "Expand internationally"], answer: 0 },
-            { question: "Partnership has collective responsibility meaning", options: ["All partners are bound by business decisions of any partner", "Each partner acts alone", "Partners share profits only", "Partners have no liability"], answer: 0 },
-            { question: "Public limited company profit tax rate is", options: ["16.5%", "15%", "17%", "10%"], answer: 0 },
-            { question: "Nominal partner", options: ["Does not invest in the business and cannot participate in management", "Is a real owner", "Has unlimited liability", "Can make decisions"], answer: 0 },
-            
-            // Topic 8: Business Ethics
-            { question: "Stakeholders of a firm include", statements: ["Owners and shareholders", "Employees and customers", "Government and community"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Business ethics are", options: ["Principles, values and beliefs guiding business behavior", "Government laws only", "Tax regulations only", "Product standards only"], answer: 0 },
-            { question: "Social responsibility refers to", options: ["Responsibility of a firm to society and all its stakeholders", "Maximizing profits only", "Avoiding taxes", "Reducing employees"], answer: 0 },
-            { question: "Ways to enhance business ethics include", statements: ["Emphasizing importance in recruitment", "Compiling a code of ethics", "Providing education and training courses"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Differences between law and ethics include", statements: ["Illegal transactions are clearly stated in laws", "Unethical practices are NOT stated in documents", "Legal punishments are specified for law violations"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "A business should be socially responsible to", options: ["All stakeholders", "Shareholders only", "Government only", "Customers only"], answer: 0 },
-            { question: "Benefits of being socially responsible include", statements: ["Better business reputation", "Attract customers concerned about social responsibilities", "Raise staff loyalty"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Ethics is different from law because", options: ["Ethical values are different for different people", "Both have clear written standards", "Both have specified punishments", "Both apply to everyone the same"], answer: 0 }
-        ];
-
-        // ==================== INTRODUCTION TO MANAGEMENT (From Vol.2) ====================
-        allQuestions['introduction-to-management'] = [
-            // Management Functions: Planning
-            { question: "Management is the process that managers use to accomplish organizational goals through", statements: ["Planning", "Organizing", "Leading", "Controlling"], options: ["(1) only", "(1) and (2) only", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "The importance of management includes", statements: ["Enhance efficiency use of resources", "Help staff achieve goals effectively"], options: ["(1) only", "(2) only", "(1) and (2)", "Neither"], answer: 2 },
-            { question: "Efficiency means", options: ["Doing the thing right", "Doing the right thing", "Making maximum profit", "Reducing all costs"], answer: 0 },
-            { question: "Effectiveness means", options: ["Doing the right thing to achieve company goals", "Working fast", "Following rules", "Minimizing costs"], answer: 0 },
-            { question: "Planning is", options: ["Deciding in advance what to do, when to do and how to do", "Directing employees", "Controlling expenses", "Organizing resources"], answer: 0 },
-            { question: "SMART goals characteristics include", statements: ["Specific", "Measurable", "Attainable", "Relevant", "Time-based"], options: ["(1) and (2) only", "(1), (2) and (3)", "(1), (2), (3) and (4)", "(1), (2), (3), (4) and (5)"], answer: 3 },
-            { question: "Process of planning includes", statements: ["Identify company's goals", "Figure out alternatives", "Evaluate alternatives", "Make decision"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "Benefits of setting goals include", statements: ["Provide clear directions to employees", "Help control progress of work", "Monitor performance of employees"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Goals other than profit-making include", statements: ["Increase market shares", "Create innovative products", "Lower production costs"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "A specific goal should avoid", options: ["Using general terms", "Using numbers", "Using clear time frame", "Using measurable criteria"], answer: 0 },
-            
-            // Organizing
-            { question: "Organizing involves", options: ["Bringing together physical, financial and human resources", "Setting goals", "Leading employees", "Controlling budgets"], answer: 0 },
-            { question: "Top management determines", options: ["The company's overall goals and direction", "Daily operations", "Customer complaints", "Worker schedules"], answer: 0 },
-            { question: "Middle management", options: ["Acts as a bridge between top and front-line management", "Makes strategic decisions", "Handles daily customer complaints", "Supervises workers directly"], answer: 0 },
-            { question: "Front-line managers are responsible for", options: ["Daily operation of the business", "Strategic decisions", "Company policies", "Overall direction"], answer: 0 },
-            { question: "Top management examples include", statements: ["President and CEO", "Division manager", "Supervisor", "Team leader"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 0 },
-            { question: "Flat organizational structure has", statements: ["Fewer levels of management", "Wider span of control", "Shorter decision-making process"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Tall organizational structure has", options: ["More levels and narrower span of control", "Fewer levels", "Wider span of control", "Faster decision making"], answer: 0 },
-            { question: "Span of control refers to", options: ["Number of subordinates reporting to a manager", "Number of managers", "Level of hierarchy", "Budget size"], answer: 0 },
-            { question: "Departmentalization by geographical location is commonly used by", options: ["Multinational corporations", "Small local stores", "Family businesses", "Single-product companies"], answer: 0 },
-            { question: "Departmentalization by function groups jobs", options: ["Performing similar functions", "By types of products", "By location", "By customer type"], answer: 0 },
-            { question: "Organizational structure can be shown in", options: ["Organizational chart", "Financial statement", "Business plan", "Marketing plan"], answer: 0 },
-            { question: "Pros of flat structure include", statements: ["Improve communication", "Faster decision making", "Increase management flexibility"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Pros of tall structure include", options: ["Narrow span allows close supervision", "Clear line of responsibility", "Faster decision making"], answer: 0 },
-            
-            // Leading
-            { question: "Leading refers to", options: ["Guiding, directing, and motivating people to work towards goals", "Allocating work", "Setting standards", "Evaluating performance"], answer: 0 },
-            { question: "Autocratic leadership", statements: ["Leaders make almost all decisions", "Little input from group members", "Work tends to be highly structured"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Democratic/Participative leadership", statements: ["Leaders invite input from employees", "Staff are given information about company issues", "Majority vote in decision making"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Laissez-faire leadership", statements: ["Leaders provide little guidance", "Delegate authority to team members", "Allow them to make decisions"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Laissez-faire leadership leads to", options: ["Lowest productivity", "Highest productivity", "Moderate productivity", "No effect"], answer: 0 },
-            { question: "Autocratic leadership is suitable when", statements: ["Subordinates are inexperienced", "Need to make quick decisions", "Subordinates do simple, routine tasks"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Democratic leadership is suitable when", statements: ["Subordinates are experienced", "Sense of responsibility of workers", "Need creative solutions"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Laissez-faire is suitable when", statements: ["Workers are able to work independently", "Workers are highly motivated", "No time bound for decisions"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Factors affecting leadership style include", statements: ["Nature of task", "Time available", "Workers' ability"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            
-            // Controlling
-            { question: "Controlling is", options: ["Monitoring activities to ensure they are done as planned", "Hiring new employees", "Setting goals", "Organizing resources"], answer: 0 },
-            { question: "Process of controlling includes", statements: ["Setting performance standards", "Measuring actual performance", "Taking corrective actions"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Performance standards are used to", options: ["Evaluate a worker's performance", "Set salaries", "Hire employees", "Design products"], answer: 0 },
-            { question: "Measuring actual performance requires", options: ["Collecting information in numbers", "Writing reports only", "Verbal discussions only", "Employee surveys only"], answer: 0 },
-            { question: "Corrective actions are taken when", options: ["Actual performance falls outside acceptable range", "Everything is going well", "Employees are satisfied", "Sales are high"], answer: 0 },
-            { question: "If actual performance is unacceptable, managers must", options: ["Take corrective actions to solve the problem", "Ignore the problem", "Fire all employees", "Reduce prices"], answer: 0 },
-            
-            // Principles of Management
-            { question: "Division of work means", options: ["Breaking down production into different tasks", "Hiring more workers", "Increasing salaries", "Reducing hours"], answer: 0 },
-            { question: "Division of work increases", options: ["Workers' productivity", "Production costs", "Management layers", "Company debt"], answer: 0 },
-            { question: "Unity of command means", options: ["Each worker takes orders from only one superior", "All workers do the same job", "One worker supervises all", "Workers choose tasks"], answer: 0 },
-            { question: "Unity of direction means", options: ["Employees on same project have same goal", "Only one manager in company", "Single product line only", "One department"], answer: 0 },
-            { question: "Balancing authority and responsibility means", options: ["Workers must have sufficient authority to carry out tasks", "Workers should have no authority", "Managers do all work", "Authority is not needed"], answer: 0 },
-            { question: "Delegation is effective when", statements: ["Authority delegated in line with responsibility", "Delegating to capable subordinates", "Providing sufficient resources"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Advantages of delegation include", statements: ["Managers can concentrate on critical matters", "Train and improve subordinates' ability", "Subordinates become more motivated"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Barrier to delegation includes", options: ["Supervisors lack confidence on subordinates", "Managers have too much authority", "Employees want more responsibility", "Resources are plenty"], answer: 0 },
-            { question: "If unity of command is violated, problems include", statements: ["Contradictory instructions cause confusion", "Subordinates may be overloaded", "Unclear chain-of-command"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            
-            // Key Business Functions
-            { question: "Human resources management tasks include", statements: ["Recruit and select staff", "Provide training", "Conduct performance appraisal"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Human resources management ensures", options: ["Right number and kinds of workers", "Maximum profits", "Lowest costs", "Best products"], answer: 0 },
-            { question: "Finance management is responsible for", statements: ["Develop financial plans and budgets", "Monitor cash inflow and outflow", "Assess investment projects"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Operations management involves", statements: ["Plan for production capacity", "Design production process", "Manage inventory"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Marketing management includes", statements: ["Identify market opportunities", "Determine market position", "Select target market"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "The 4P model in marketing includes", statements: ["Product", "Price", "Place", "Promotion"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "Information management is", options: ["Not equal to ICT only", "Equal to ICT", "Only for IT companies", "Not important"], answer: 0 },
-            { question: "Risk management strategies include", statements: ["Risk avoidance", "Risk assumption", "Risk reduction", "Risk transfer"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "Risk avoidance means", options: ["Complete elimination of the risk of loss", "Bearing the risk", "Reducing the risk", "Transferring the risk"], answer: 0 },
-            { question: "Risk transfer commonly involves", options: ["Taking out insurance", "Hiring more workers", "Expanding markets", "Lowering prices"], answer: 0 },
-            
-            // SMEs and MNCs
-            { question: "SMEs in Hong Kong (manufacturing) employ", options: ["Fewer than 100 persons", "More than 500 persons", "Exactly 100 persons", "More than 200 persons"], answer: 0 },
-            { question: "SMEs in Hong Kong (non-manufacturing) employ", options: ["Fewer than 50 persons", "Fewer than 100 persons", "More than 100 persons", "Exactly 50 persons"], answer: 0 },
-            { question: "SMEs are usually managed by", options: ["Owners and family members", "Professional managers", "Government", "Stockholders"], answer: 0 },
-            { question: "SMEs usually have", options: ["Limited capital and resources", "Unlimited resources", "Large production scale", "Professional managers"], answer: 0 },
-            { question: "MNCs are usually managed by", options: ["Professional managers", "Owners directly", "Government", "Employees"], answer: 0 },
-            { question: "MNCs usually have", options: ["Capital-intensive and technology-based operations", "Labor-intensive operations", "Limited capital", "Simple structures"], answer: 0 },
-            { question: "Entrepreneurs are people who", options: ["Take risks to start a business for making profits", "Work for large companies", "Avoid business activities", "Only invest in stocks"], answer: 0 },
-            { question: "Importance of entrepreneurship includes", statements: ["Brings innovative products", "Promotes economic growth", "Creates competition in market"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "SMEs contribute to Hong Kong by", statements: ["Providing unique products", "Creating employment", "Introducing new products"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 }
-        ];
-
-        // ==================== PERSONAL FINANCIAL MANAGEMENT (From Vol.3) ====================
-        allQuestions['personal-financial-management'] = [
-            // Time Value of Money
-            { question: "Time value of money means", options: ["A dollar received today is worth more than a dollar in the future", "Money loses value every year", "Interest rates are always high", "Inflation is good for savers"], answer: 0 },
-            { question: "Future Value (FV) formula is", options: ["PV × (1 + r)^n", "FV / (1 + r)^n", "PV × r × n", "PV / (1 + r)"], answer: 0 },
-            { question: "Present Value (PV) formula is", options: ["FV / (1 + r)^n", "PV × (1 + r)^n", "FV × r × n", "PV / r"], answer: 0 },
-            { question: "Compounding means", options: ["Interest is reinvested to earn further return", "Principal is decreased", "Only interest is paid", "Money is withdrawn"], answer: 0 },
-            { question: "Discounting is the process of", options: ["Finding present value of future cash flow", "Finding future value", "Calculating interest only", "Tax calculation"], answer: 0 },
-            { question: "If compounding frequency is higher, effective rate is", options: ["Higher", "Lower", "Same", "Zero"], answer: 0 },
-            { question: "$100 invested at 10% compounded annually for 3 years equals", options: ["$133.10", "$130", "$110", "$100"], answer: 0 },
-            { question: "The more frequently interest is compounded, the", options: ["Larger the sum received at the end", "Smaller the sum received", "Same sum regardless", "Lower the interest rate"], answer: 0 },
-            { question: "Present value is the", options: ["Current value of a future sum of money", "Future value of current money", "Interest earned", "Principal amount"], answer: 0 },
-            { question: "Compounding and discounting are", options: ["Opposite processes", "Same processes", "Only for bonds", "Only for stocks"], answer: 0 },
-            
-            // NPV
-            { question: "NPV stands for", options: ["Net Present Value", "New Present Value", "Net Profit Value", "Normal Present Value"], answer: 0 },
-            { question: "NPV =", options: ["PV of future cash inflows - Initial cash outflow", "FV - PV", "Total revenue - Total cost", "Interest - Principal"], answer: 0 },
-            { question: "If NPV is positive, the firm should", options: ["Buy the machine (favorable investment)", "Not buy the machine", "Sell the machine", "Do nothing"], answer: 0 },
-            { question: "If NPV is negative, the firm should", options: ["Not buy the machine (unfavorable investment)", "Buy the machine", "Borrow more money", "Hire more workers"], answer: 0 },
-            { question: "If NPV equals zero, the firm is", options: ["Indifferent about buying or not", "Should definitely buy", "Should definitely not buy", "Profitable"], answer: 0 },
-            { question: "NPV decision considers", statements: ["Cost of capital", "Cash inflows from use of asset", "Scrap value at end of useful life"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "To calculate NPV, we need", options: ["All of the above", "Only cost of capital", "Only cash flows", "Only initial outlay"], answer: 0 },
-            
-            // Nominal vs Effective Rate
-            { question: "Nominal interest rate is", options: ["Rate stated on financial instruments", "Actual interest received", "Effective rate of return", "Inflation rate"], answer: 0 },
-            { question: "Effective interest rate reflects", options: ["Effect of frequency of compounding", "Nominal rate only", "Bank fees", "Tax charges"], answer: 0 },
-            { question: "If interest is compounded quarterly instead of annually, effective rate will be", options: ["Higher", "Lower", "Same", "Zero"], answer: 0 },
-            { question: "Effective rate formula is", options: ["(1 + r/m)^m - 1", "r × m", "r / m", "r + m"], answer: 0 },
-            { question: "If nominal rate is 12% compounded monthly, effective rate is approximately", options: ["12.68%", "12%", "12.36%", "13%"], answer: 0 },
-            { question: "Effective rate of return is raised if", options: ["Frequency of compounding is higher", "Principal is larger", "Period of deposit is shorter", "Cost of capital is lower"], answer: 0 },
-            { question: "For the same nominal rate, more frequent compounding means", options: ["Higher effective rate", "Lower effective rate", "Same effective rate", "No effect"], answer: 0 },
-            
-            // Consumer Credit
-            { question: "Consumer credit is", options: ["Arrangement to receive goods/services first and pay later", "Cash payment only", "Savings account", "Investment product"], answer: 0 },
-            { question: "Credit cards have", statements: ["A credit limit set", "Minimum payment requirement", "Interest charged on unpaid balance"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Credit record in Hong Kong is stored in", options: ["TransUnion Limited", "Banks only", "Government only", "Employers"], answer: 0 },
-            { question: "If minimum payment is not made by due date, interest will be charged on", options: ["Any unpaid balances after the due date", "Only the minimum amount", "Total credit limit", "Annual fee"], answer: 0 },
-            { question: "Ways to improve credit score include", statements: ["Make loan repayments on time", "Limit loan applications", "Keep outstanding debt low"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Good credit record helps to", statements: ["Lower cost of loans", "Increase chance of getting loans", "Higher credit limit"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Credit card operators include", options: ["Visa, MasterCard, American Express", "Only banks", "Only government", "Only retailers"], answer: 0 },
-            { question: "Bank overdraft allows customers to", options: ["Withdraw money more than balance up to credit limit", "Only withdraw exact balance", "Transfer money only", "Pay bills only"], answer: 0 },
-            { question: "Instalment loan has", options: ["Fixed number of payments for principal and interest", "No fixed repayment schedule", "Variable payments only", "Interest-free payments"], answer: 0 },
-            
-            // Risk and Return
-            { question: "Return on investment includes", statements: ["Periodic income (dividend, interest)", "Capital gain when selling at higher price"], options: ["(1) only", "(2) only", "(1) and (2)", "Neither"], answer: 2 },
-            { question: "Risk is", options: ["Uncertainty of outcome", "Certain return", "Guaranteed profit", "Zero loss"], answer: 0 },
-            { question: "Most people are", options: ["Risk averse", "Risk loving", "Risk neutral", "Risk indifferent"], answer: 0 },
-            { question: "Firm-specific risk is also called", options: ["Unsystematic risk", "Market risk", "Systematic risk", "Non-diversifiable risk"], answer: 0 },
-            { question: "Market risk is also called", options: ["Systematic risk", "Unsystematic risk", "Firm-specific risk", "Diversifiable risk"], answer: 0 },
-            { question: "Higher risk investments should bring", options: ["Higher expected return", "Lower expected return", "Same return", "No return"], answer: 0 },
-            { question: "Which investment has highest risk and highest return?", options: ["Stocks/Shares", "Bonds", "Deposits", "Savings accounts"], answer: 0 },
-            { question: "Which investment has lowest risk and lowest return?", options: ["Savings deposits", "Stocks", "Bonds", "Mutual funds"], answer: 0 },
-            { question: "Ordinary shareholders have", options: ["Voting rights", "Fixed dividend", "Guaranteed return", "Priority in liquidation"], answer: 0 },
-            { question: "Preference shareholders receive", options: ["Fixed dividend", "Variable dividend", "No dividend", "Capital gain only"], answer: 0 },
-            { question: "Bonds provide", options: ["Interest return and capital gain", "Only dividend", "Only voting rights", "Ownership"], answer: 0 },
-            { question: "Unsystematic risk can be reduced by", options: ["Diversification", "Higher leverage", "More debt", "Less investment"], answer: 0 },
-            { question: "Systematic risk cannot be reduced by", options: ["Diversification", "Asset allocation", "Portfolio diversification", "None of the above"], answer: 0 },
-            { question: "Higher return from risky products compensates investors for", options: ["Bearing higher risk", "Paying more tax", "Lower inflation", "Government regulation"], answer: 0 },
-            
-            // Personal Financial Planning
-            { question: "Personal financial planning is a ___ process", options: ["Comprehensive", "Simple", "One-time", "Annual"], answer: 0 },
-            { question: "Areas of financial planning include", statements: ["Consumption planning", "Insurance planning", "Investment planning", "Retirement planning"], options: ["(1) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "The life cycle stages include", statements: ["Young single", "Just married", "Married with children", "Pre-retirement"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2), (3) and (4)"], answer: 3 },
-            { question: "Young single stage financial needs include", statements: ["Payment for settling student loan", "Payment for further education", "Create and accumulate wealth"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Pre-retirement financial needs include", statements: ["Plan for daily living expense after retirement", "Plan for medical expenses", "Estate planning"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Financial planning should be started", options: ["As early as possible", "Only at age 50", "Only when wealthy", "Only before retirement"], answer: 0 },
-            { question: "Benefits of financial planning include", statements: ["Achieve financial goals", "Avoid financial mistakes", "Maintain living standards"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            
-            // MPF
-            { question: "MPF was launched in", options: ["December 2000", "January 2000", "December 1999", "January 2001"], answer: 0 },
-            { question: "MPF mandatory contribution for employees earning $30,000 and above is", options: ["$1,500", "$355", "$0", "$700"], answer: 0 },
-            { question: "MPF benefits can be withdrawn at age", options: ["65", "60", "55", "70"], answer: 0 },
-            { question: "Early withdrawal of MPF can be made for", statements: ["Early retirement at age 60", "Permanent departure from Hong Kong", "Total incapacity"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "MPF employees can", statements: ["Choose MPF funds", "Change funds once a year", "Bear investment risk"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "MPF employees aged 18 to 65 and employed for ___ days must join", options: ["60", "30", "90", "120"], answer: 0 },
-            { question: "MPF voluntary contributions are", options: ["Not tax deductible", "Tax deductible", "Required", "Only for employers"], answer: 0 },
-            { question: "Tax deduction for MPF mandatory contributions per year is up to", options: ["$18,000", "$15,000", "$10,000", "$20,000"], answer: 0 },
-            { question: "Who chooses the MPF trustee?", options: ["Employer", "Employee", "Government", "Insurance company"], answer: 0 },
-            { question: "MPF final amount depends on", statements: ["Accumulated contributions", "Investment return", "Fees and expenses"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            
-            // Stock Trading
-            { question: "Hang Seng Index is a", options: ["Stock market index", "Bond market index", "Commodity index", "Currency index"], answer: 0 },
-            { question: "Blue chip stocks are", options: ["Stocks of well-established companies", "New startup companies", "Government bonds", "Foreign stocks"], answer: 0 },
-            { question: "Factors affecting share prices include", statements: ["Company performance", "Economic conditions", "Market sentiment"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
-            { question: "Stock trading platforms in Hong Kong include", options: ["Hong Kong Stock Exchange", "New York Stock Exchange", "London Stock Exchange", "Tokyo Stock Exchange"], answer: 0 },
-            { question: "Ordinary shares represent", options: ["Ownership in a company", "A loan to a company", "A guarantee of returns", "A fixed deposit"], answer: 0 },
-            { question: "Red chips stocks are", options: ["Companies with Mainland China background", "Small companies", "Government bonds", "Foreign companies"], answer: 0 },
-            { question: "Listing requirements for new applicants include", options: ["All of the above", "Profits requirements", "Market capitalization", "Trading volume"], answer: 0 },
-            { question: "Rights of investors include", statements: ["Right to ask for rationale behind recommendations", "Right to file complaints against brokers"], options: ["(1) only", "(2) only", "(1) and (2)", "Neither"], answer: 2 }
-        ];
-
-        function loadSubject(subject) {
-            currentSubject = subject;
-            
-            if (subject === 'all') {
-                questions = [
-                    ...allQuestions['business-environment'],
-                    ...allQuestions['introduction-to-management'],
-                    ...allQuestions['personal-financial-management']
-                ];
-            } else {
-                questions = [...allQuestions[subject]];
-            }
-            
-            questions = shuffleArray(questions);
-            currentIndex = 0;
-            userAnswers = new Array(questions.length).fill(null);
-            
-            document.getElementById('subjectBadge').textContent = subjectNames[subject];
-            document.getElementById('subjectBadge').className = 'badge ' + subjectBadge[subject];
-            
-            showQuestion();
-            document.getElementById('subjectScreen').classList.add('hidden');
-            document.getElementById('examScreen').classList.remove('hidden');
-            document.getElementById('resultScreen').classList.add('hidden');
+        function go(s) {
+            subj = s;
+            var allQ = s === 'all' ? data.be.concat(data.im, data.pfm) : data[s];
+            qs = allQ.slice(0, s === 'all' ? 72 : 24);
+            qs.sort(function() { return Math.random() - 0.5; });
+            i = 0;
+            ans = new Array(qs.length).fill(null);
+            var badge = s === 'be' ? 'Business Environment' : s === 'im' ? 'Introduction to Management' : s === 'pfm' ? 'Personal Financial Management' : 'All Subjects';
+            var badgeClass = s === 'be' ? 'badge-be' : s === 'im' ? 'badge-im' : s === 'pfm' ? 'badge-pfm' : 'badge-be';
+            document.getElementById('badge').innerText = badge;
+            document.getElementById('badge').className = 'badge ' + badgeClass;
+            document.getElementById('t').innerText = qs.length;
+            show();
+            document.getElementById('home').className = 'hidden';
+            document.getElementById('exam').className = 'card';
+            document.getElementById('result').className = 'hidden';
         }
-
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-
-        function getQuestionHTML(q) {
-            if (q.statements) {
-                let statementsHTML = '<ul class="statement-list">';
-                q.statements.forEach((stmt, i) => {
-                    const labels = ['(1)', '(2)', '(3)', '(4)', '(5)'];
-                    statementsHTML += `<li class="statement-item"><span class="statement-label">${labels[i]}</span><span class="statement-text">${stmt}</span></li>`;
-                });
-                statementsHTML += '</ul>';
-                return q.question + statementsHTML;
-            }
-            return q.question;
-        }
-
-        function showQuestion() {
-            const q = questions[currentIndex];
-            document.getElementById('currentNum').textContent = currentIndex + 1;
-            document.getElementById('totalNum').textContent = questions.length;
-            document.getElementById('progressFill').style.width = ((currentIndex + 1) / questions.length * 100) + '%';
-            
-            document.getElementById('questionText').innerHTML = getQuestionHTML(q);
-            
-            const container = document.getElementById('optionsContainer');
-            container.innerHTML = '';
-            
-            const existingFeedbackBtns = document.querySelectorAll('.answer-feedback, .correct-answer-box, .your-answer-box');
-            existingFeedbackBtns.forEach(el => el.remove());
-            
-            const hasAnswered = userAnswers[currentIndex] !== null;
-            
-            q.options.forEach((opt, i) => {
-                const div = document.createElement('div');
-                div.className = 'option';
-                
-                // Only show correct answer AFTER user has answered
-                if (hasAnswered) {
-                    if (i === q.answer) {
-                        div.classList.add('correct-answer');
-                    }
-                    if (userAnswers[currentIndex] === i) {
-                        if (i !== q.answer) {
-                            div.classList.add('wrong-answer-selected');
-                        }
-                    }
+        function show() {
+            document.getElementById('n').innerText = i + 1;
+            document.getElementById('q').innerText = qs[i].q;
+            var h = '';
+            qs[i].o.forEach(function(o, j) {
+                var cls = 'opt';
+                if (ans[i] !== null) {
+                    if (j === qs[i].a) cls += ' correct';
+                    else if (j === ans[i]) cls += ' wrong';
                 }
-                
-                div.innerHTML = `<span class="option-letter">${String.fromCharCode(65 + i)}.</span><span class="option-text">${opt}</span>`;
-                
-                if (!hasAnswered) {
-                    div.onclick = () => selectOption(i);
-                    div.style.cursor = 'pointer';
-                } else {
-                    div.style.cursor = 'default';
-                }
-                
-                container.appendChild(div);
+                h += '<div class="' + cls + '" onclick="' + (ans[i] === null ? 'pick(' + j + ')' : '') + '">' + String.fromCharCode(65+j) + '. ' + o + '</div>';
             });
-            
-            let feedbackHTML = '';
-            if (hasAnswered) {
-                const isCorrect = userAnswers[currentIndex] === q.answer;
-                feedbackHTML = `
-                    <div class="answer-feedback ${isCorrect ? 'correct' : 'incorrect'}">
-                        ${isCorrect ? '✓ CORRECT!' : '✗ INCORRECT'}
-                    </div>
-                    <div class="correct-answer-box">
-                        <strong>Correct Answer: ${String.fromCharCode(65 + q.answer)}. ${q.options[q.answer]}</strong>
-                    </div>
-                    ${!isCorrect ? `<div class="your-answer-box">Your answer: ${String.fromCharCode(65 + userAnswers[currentIndex])}. ${q.options[userAnswers[currentIndex]]}</div>` : ''}
-                    <div class="btn-group" style="margin-top: 15px;">
-                        ${currentIndex > 0 ? '<button class="btn btn-secondary" onclick="prevQuestion()">← Previous</button>' : ''}
-                        ${currentIndex < questions.length - 1 ? '<button class="btn" onclick="nextQuestion()">Next →</button>' : '<button class="btn" onclick="submitExam()">Submit Exam</button>'}
-                    </div>
-                `;
-            }
-            
-            container.insertAdjacentHTML('afterend', feedbackHTML);
-            document.getElementById('navButtons').style.display = hasAnswered ? 'none' : 'flex';
-        }
-
-        function selectOption(index) {
-            userAnswers[currentIndex] = index;
-            showQuestion();
-        }
-
-        function nextQuestion() {
-            if (currentIndex < questions.length - 1) {
-                currentIndex++;
-                showQuestion();
+            document.getElementById('opts').innerHTML = h;
+            if (ans[i] !== null) {
+                var fb = ans[i] === qs[i].a ? '<div class="feedback correct">✓ Correct!</div>' : '<div class="feedback wrong">✗ Wrong! Answer: ' + String.fromCharCode(65 + qs[i].a) + '</div>';
+                document.getElementById('opts').insertAdjacentHTML('afterend', fb);
+                var btn = i >= qs.length - 1 ? '<button class="btn" onclick="showResult()">Submit</button>' : '<button class="btn" onclick="nextQ()">Next →</button>';
+                document.getElementById('opts').insertAdjacentHTML('afterend', '<div class="btn-group" style="margin-top:15px">' + btn + '</div>');
             }
         }
-
-        function prevQuestion() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                showQuestion();
-            }
+        function pick(j) { ans[i] = j; show(); }
+        function nextQ() { i++; if (i >= qs.length) showResult(); else show(); }
+        function showResult() {
+            var c = 0;
+            qs.forEach(function(q, j) { if (ans[j] === q.a) c++; });
+            var p = Math.round(c / qs.length * 100);
+            document.getElementById('s').innerText = p + '%';
+            document.getElementById('d').innerText = c + ' out of ' + qs.length + ' correct';
+            var badge = subj === 'be' ? 'Business Environment' : subj === 'im' ? 'Introduction to Management' : subj === 'pfm' ? 'Personal Financial Management' : 'All Subjects';
+            var badgeClass = subj === 'be' ? 'badge-be' : subj === 'im' ? 'badge-im' : subj === 'pfm' ? 'badge-pfm' : 'badge-be';
+            document.getElementById('badge2').innerText = badge;
+            document.getElementById('badge2').className = 'badge ' + badgeClass;
+            document.getElementById('exam').className = 'hidden';
+            document.getElementById('result').className = 'card';
         }
-
-        function submitExam() {
-            const unanswered = questions.filter((_, i) => userAnswers[i] === null).length;
-            if (unanswered > 0) {
-                if (!confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`)) return;
-            }
-            showResults();
-        }
-
-        function showResults() {
-            let correct = 0;
-            
-            questions.forEach((q, i) => {
-                if (userAnswers[i] === q.answer) correct++;
-            });
-            
-            const percentage = Math.round((correct / questions.length) * 100);
-            document.getElementById('scoreDisplay').textContent = percentage + '%';
-            document.getElementById('scoreDetails').textContent = `${correct} out of ${questions.length} correct`;
-            document.getElementById('resultBadge').textContent = subjectNames[currentSubject];
-            document.getElementById('resultBadge').className = 'badge ' + subjectBadge[currentSubject];
-            
-            document.getElementById('examScreen').classList.add('hidden');
-            document.getElementById('resultScreen').classList.remove('hidden');
-        }
-
-        function restartExam() {
-            questions = shuffleArray(questions);
-            userAnswers = new Array(questions.length).fill(null);
-            currentIndex = 0;
-            showQuestion();
-            document.getElementById('resultScreen').classList.add('hidden');
-            document.getElementById('examScreen').classList.remove('hidden');
-        }
-
-        function showSubjects() {
-            document.getElementById('resultScreen').classList.add('hidden');
-            document.getElementById('examScreen').classList.add('hidden');
-            document.getElementById('subjectScreen').classList.remove('hidden');
-        }
+        function home() { document.getElementById('exam').className = 'hidden'; document.getElementById('result').className = 'hidden'; document.getElementById('home').className = 'card'; }
+        function retry() { go(subj); }
     </script>
 </body>
 </html>
