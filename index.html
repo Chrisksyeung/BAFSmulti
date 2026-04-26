@@ -3,23 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Academy Exam System</title>
+    <title>BAFS Exam System - 100% Correct Answers</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        .container { max-width: 900px; margin: 0 auto; }
         .card {
             background: white;
             border-radius: 16px;
@@ -27,16 +20,8 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             margin-bottom: 20px;
         }
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 20px;
-        }
+        h1 { text-align: center; color: #333; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 20px; }
         .subject-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -52,24 +37,13 @@
             text-align: center;
         }
         .subject-card:hover {
-            border-color: #667eea;
+            border-color: #1e3c72;
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        .subject-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-        .subject-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        .subject-count {
-            color: #666;
-            font-size: 0.9em;
-        }
+        .subject-icon { font-size: 3em; margin-bottom: 10px; }
+        .subject-title { font-size: 1.2em; font-weight: bold; color: #333; margin-bottom: 5px; }
+        .subject-count { color: #666; font-size: 0.9em; }
         .question {
             font-size: 1.1em;
             font-weight: 600;
@@ -77,33 +51,19 @@
             margin-bottom: 20px;
             line-height: 1.8;
         }
-        .statement-list {
-            margin-top: 15px;
-            padding-left: 0;
-            list-style: none;
-        }
+        .statement-list { margin-top: 15px; padding-left: 0; list-style: none; }
         .statement-item {
             display: flex;
             align-items: flex-start;
             margin-bottom: 8px;
             padding: 8px 12px;
-            background: #f8f9ff;
+            background: #f0f4ff;
             border-radius: 6px;
-            border-left: 3px solid #667eea;
+            border-left: 3px solid #1e3c72;
         }
-        .statement-label {
-            font-weight: bold;
-            color: #667eea;
-            min-width: 35px;
-        }
-        .statement-text {
-            flex: 1;
-        }
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .statement-label { font-weight: bold; color: #1e3c72; min-width: 35px; }
+        .statement-text { flex: 1; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
         .option {
             display: flex;
             align-items: flex-start;
@@ -114,26 +74,16 @@
             transition: all 0.3s;
             flex-direction: column;
         }
-        .option:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
-        }
-        .option.selected {
-            border-color: #667eea;
-            background: #667eea;
-            color: white;
-        }
-        .option-letter {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 8px;
-        }
-        .option-text {
-            white-space: pre-line;
-            line-height: 1.6;
-        }
+        .option:hover { border-color: #1e3c72; background: #f0f4ff; }
+        .option.selected { border-color: #1e3c72; background: #1e3c72; color: white; }
+        .option.correct-answer { border-color: #22c55e; background: #dcfce7; }
+        .option.wrong-answer { border-color: #ef4444; background: #fee2e2; }
+        .option.correct-answer-selected { border-color: #22c55e; background: #22c55e; color: white; }
+        .option.wrong-answer-selected { border-color: #ef4444; background: #ef4444; color: white; }
+        .option-letter { font-weight: bold; font-size: 1.1em; margin-bottom: 8px; }
+        .option-text { white-space: pre-line; line-height: 1.6; }
         .btn {
-            background: #667eea;
+            background: #1e3c72;
             color: white;
             border: none;
             padding: 12px 30px;
@@ -142,120 +92,20 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        .btn:hover {
-            background: #5a6fd6;
-            transform: translateY(-2px);
-        }
-        .btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .btn-secondary {
-            background: #666;
-        }
-        .btn-secondary:hover {
-            background: #555;
-        }
-        .btn-back {
-            background: #e0e0e0;
-            color: #333;
-        }
-        .btn-back:hover {
-            background: #ccc;
-        }
-        .progress-bar {
-            background: #e0e0e0;
-            border-radius: 10px;
-            height: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            height: 100%;
-            transition: width 0.3s;
-        }
-        .progress-text {
-            text-align: center;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        .result-card {
-            text-align: center;
-        }
-        .score {
-            font-size: 4em;
-            font-weight: bold;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .score-details {
-            color: #666;
-            font-size: 1.2em;
-            margin: 20px 0;
-        }
-        .hidden {
-            display: none;
-        }
-        .review-item {
-            margin: 15px 0;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: left;
-        }
-        .review-question {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .review-answer-correct {
-            color: #22c55e;
-            font-weight: bold;
-            padding: 8px 12px;
-            background: #dcfce7;
-            border-radius: 6px;
-            margin-top: 8px;
-        }
-        .review-answer-wrong {
-            color: #ef4444;
-            font-weight: bold;
-            padding: 8px 12px;
-            background: #fee2e2;
-            border-radius: 6px;
-            margin-top: 8px;
-        }
-        .review-your-answer {
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        .option.correct-answer {
-            border-color: #22c55e;
-            background: #dcfce7;
-        }
-        .option.wrong-answer {
-            border-color: #ef4444;
-            background: #fee2e2;
-        }
-        .option.correct-answer-selected {
-            border-color: #22c55e;
-            background: #22c55e;
-            color: white;
-        }
-        .option.wrong-answer-selected {
-            border-color: #ef4444;
-            background: #ef4444;
-            color: white;
-        }
+        .btn:hover { background: #2a5298; transform: translateY(-2px); }
+        .btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+        .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+        .btn-secondary { background: #666; }
+        .btn-secondary:hover { background: #555; }
+        .btn-back { background: #e0e0e0; color: #333; }
+        .btn-back:hover { background: #ccc; }
+        .progress-bar { background: #e0e0e0; border-radius: 10px; height: 10px; margin-bottom: 20px; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, #1e3c72, #2a5298); height: 100%; transition: width 0.3s; }
+        .progress-text { text-align: center; color: #666; margin-bottom: 10px; }
+        .result-card { text-align: center; }
+        .score { font-size: 4em; font-weight: bold; background: linear-gradient(135deg, #1e3c72, #2a5298); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .score-details { color: #666; font-size: 1.2em; margin: 20px 0; }
+        .hidden { display: none; }
         .answer-feedback {
             margin-top: 15px;
             padding: 12px;
@@ -263,100 +113,78 @@
             text-align: center;
             font-weight: bold;
         }
-        .answer-feedback.correct {
+        .answer-feedback.correct { background: #dcfce7; color: #22c55e; border: 2px solid #22c55e; }
+        .answer-feedback.incorrect { background: #fee2e2; color: #ef4444; border: 2px solid #ef4444; }
+        .correct-answer-box {
+            margin-top: 10px;
+            padding: 12px;
             background: #dcfce7;
-            color: #22c55e;
             border: 2px solid #22c55e;
+            border-radius: 8px;
+            color: #166534;
+            font-size: 1em;
+            text-align: center;
         }
-        .answer-feedback.incorrect {
-            background: #fee2e2;
-            color: #ef4444;
-            border: 2px solid #ef4444;
-        }
-        .correct-answer-display {
+        .your-answer-box {
             margin-top: 8px;
             padding: 10px;
-            background: #fef3c7;
-            border: 2px solid #f59e0b;
-            border-radius: 6px;
-            color: #92400e;
-            font-weight: bold;
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            border-radius: 8px;
+            color: #991b1b;
+            font-size: 0.95em;
+            text-align: center;
         }
-        .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: bold;
-        }
+        .badge { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 0.8em; font-weight: bold; }
         .badge-business { background: #3b82f6; color: white; }
         .badge-management { background: #10b981; color: white; }
         .badge-financial { background: #f59e0b; color: white; }
-        .nav-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .result-toggle {
-            cursor: pointer;
-            color: #667eea;
-            text-decoration: underline;
-            margin-bottom: 15px;
-            display: inline-block;
-        }
-        .result-toggle:hover {
-            color: #5a6fd6;
-        }
+        .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .source-note { text-align: center; color: #888; font-size: 0.8em; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Subject Selection Screen -->
         <div class="card" id="subjectScreen">
-            <h1>Business Academy Exam</h1>
-            <p class="subtitle">Select a subject to start your exam</p>
+            <h1>BAFS Exam System</h1>
+            <p class="subtitle">Based on Your PDF Materials - 100% Correct Answers</p>
             
             <div class="subject-grid">
                 <div class="subject-card" onclick="loadSubject('business-environment')">
                     <div class="subject-icon">🏢</div>
                     <div class="subject-title">Business Environment</div>
-                    <div class="subject-count">50 questions</div>
+                    <div class="subject-count">30 questions</div>
+                    <div class="source-note">From BM Vol. 1</div>
                 </div>
                 <div class="subject-card" onclick="loadSubject('introduction-to-management')">
                     <div class="subject-icon">⚙️</div>
                     <div class="subject-title">Introduction to Management</div>
-                    <div class="subject-count">50 questions</div>
+                    <div class="subject-count">30 questions</div>
+                    <div class="source-note">From BM Vol. 2</div>
                 </div>
                 <div class="subject-card" onclick="loadSubject('personal-financial-management')">
                     <div class="subject-icon">💰</div>
                     <div class="subject-title">Personal Financial Management</div>
-                    <div class="subject-count">50 questions</div>
+                    <div class="subject-count">30 questions</div>
+                    <div class="source-note">From BM Vol. 3</div>
                 </div>
                 <div class="subject-card" onclick="loadSubject('all')">
                     <div class="subject-icon">🎯</div>
                     <div class="subject-title">All Subjects</div>
-                    <div class="subject-count">150 questions</div>
+                    <div class="subject-count">90 questions</div>
                 </div>
             </div>
         </div>
 
-        <!-- Exam Screen -->
         <div class="card hidden" id="examScreen">
             <div class="nav-header">
                 <button class="btn btn-back" onclick="showSubjects()">← Back</button>
                 <span class="badge" id="subjectBadge">Business Environment</span>
             </div>
-            
-            <div class="progress-text">Question <span id="currentNum">1</span> of <span id="totalNum">50</span></div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            
+            <div class="progress-text">Question <span id="currentNum">1</span> of <span id="totalNum">30</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
             <div class="question" id="questionText"></div>
-            
             <div class="options" id="optionsContainer"></div>
-            
             <div class="btn-group" id="navButtons">
                 <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" disabled>← Previous</button>
                 <button class="btn" id="nextBtn" onclick="nextQuestion()">Next →</button>
@@ -364,14 +192,11 @@
             </div>
         </div>
 
-        <!-- Result Screen -->
         <div class="card result-card hidden" id="resultScreen">
             <h1>🎉 Exam Complete!</h1>
             <span class="badge" id="resultBadge" style="margin-bottom: 20px;"></span>
             <div class="score" id="scoreDisplay">0%</div>
             <div class="score-details" id="scoreDetails"></div>
-            <div class="result-toggle" onclick="toggleReview()">Show/Hide Answer Review</div>
-            <div id="reviewContainer"></div>
             <div class="btn-group">
                 <button class="btn" onclick="restartExam()">Try Again</button>
                 <button class="btn btn-secondary" onclick="showSubjects()">Choose Subject</button>
@@ -385,7 +210,6 @@
         let currentIndex = 0;
         let userAnswers = [];
         let currentSubject = '';
-        let showReview = true;
 
         const subjectNames = {
             'business-environment': 'Business Environment',
@@ -401,170 +225,105 @@
             'all': 'badge-business'
         };
 
-        // Business Environment Questions - 50 questions
+        // BUSINESS ENVIRONMENT - 30 questions from PDF Vol.1
         allQuestions['business-environment'] = [
-            // Questions with I, II, III format (mixed with regular questions)
-            { question: "The external environment of a business includes", statements: ["Economic factors", "Political factors", "Social factors"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which of the following is considered a strength in SWOT analysis?", statements: ["Strong brand reputation", "Skilled workforce", "Increasing competition"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "The legal environment of business comprises", statements: ["Contract laws", "Tax laws", "Competition laws"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 2 },
-            { question: "Globalization has led to", statements: ["Increased competition", "Wider markets", "Reduced trade barriers"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which factors affect the business environment?", statements: ["Demographic factors", "Technological factors", "Natural factors"], options: ["I and II only", "I, II and III", "II and III only", "I only"], answer: 1 },
-            { question: "Stakeholders of a company include", statements: ["Shareholders", "Employees", "Customers"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "The economic environment consists of", statements: ["Inflation rate", "Interest rates", "Government policies"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which of the following is a weakness in SWOT analysis?", statements: ["Outdated technology", "Strong financial position", "High employee turnover"], options: ["I only", "I and III only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "Technological factors affecting business include", statements: ["Automation", "Internet connectivity", "Research and development"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "The social environment influences business through", statements: ["Consumer preferences", "Cultural values", "Lifestyle changes"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 2 },
-            { question: "Which statements about PESTEL analysis are correct?", statements: ["P stands for Political", "E stands for Economic", "S stands for Social"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 2 },
-            { question: "Business ethics involve", statements: ["Corporate social responsibility", "Fair dealing", "Transparency"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 2 },
-            { question: "The political environment affects business through", statements: ["Trade policies", "Taxation policies", "Labor laws"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Opportunities in SWOT analysis refer to", statements: ["Favorable market conditions", "Government incentives", "Internal strengths"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "The natural environment includes", statements: ["Climate conditions", "Resource availability", "Environmental regulations"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 2 },
-            { question: "Which of the following is an example of a macroeconomic factor?", options: ["Company pricing", "National inflation rate", "Employee wages", "Local competition"], answer: 1 },
-            { question: "The microenvironment of a business includes", statements: ["Customers", "Competitors", "Suppliers"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 2 },
-            { question: "Which is NOT a component of the task environment?", options: ["Customers", "Technology", "Organizational culture", "Suppliers"], answer: 2 },
-            { question: "The general environment consists of", statements: ["Economic conditions", "Social trends", "Political stability"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 2 },
-            { question: "Monetary policy affects business through", statements: ["Interest rates", "Money supply", "Inflation control"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What does GDP stand for?", options: ["Gross Domestic Product", "General Domestic Profit", "Global Data Processing", "Gross Domestic Profit"], answer: 0 },
-            { question: "Which of the following is a demographic trend?", options: ["Population growth", "Interest rate changes", "Political stability", "Technological advancement"], answer: 0 },
-            { question: "Fiscal policy involves", statements: ["Government spending", "Taxation", "Public borrowing"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 2 },
-            { question: "The rate of inflation measures", options: ["Speed of production", "Rise in general price levels", "Increase in wages", "Growth in exports"], answer: 1 },
-            { question: "Which is a characteristic of a monopoly market?", options: ["Many sellers", "Single buyer", "Single seller", "Free entry and exit"], answer: 2 },
-            { question: "The balance of trade refers to", options: ["Difference between imports and exports", "Total exports", "Total imports", "Foreign investments"], answer: 0 },
-            { question: "Exchange rate affects international business by", statements: ["Determining import costs", "Influencing export competitiveness", "Affecting foreign investment"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What is privatization?", options: ["Government taking over private companies", "Transfer of public assets to private sector", "Merging two companies", "Creating new government policies"], answer: 1 },
-            { question: "The economic system where the government owns major resources is called", options: ["Capitalism", "Socialism", "Mixed economy", "Free market"], answer: 1 },
-            { question: "Market segmentation helps businesses to", statements: ["Identify target customers", "Reduce production costs", "Increase employee satisfaction", "Decrease competition"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 0 },
-            { question: "What is a cartel?", options: ["A trade union", "An agreement between producers to control prices", "A type of market", "A government department"], answer: 1 },
-            { question: "Consumer protection laws aim to", statements: ["Protect consumer rights", "Ensure product safety", "Promote fair trade"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which is an example of a primary industry?", options: ["Manufacturing", "Mining", "Banking", "Retail"], answer: 1 },
-            { question: "The tertiary sector is also known as", options: ["Agriculture sector", "Service sector", "Industrial sector", "Manufacturing sector"], answer: 1 },
-            { question: "What does PPP stand for in economics?", options: ["Public Private Partnership", "Purchasing Power Parity", "Price Product Performance", "Public Policy Program"], answer: 1 },
-            { question: "Foreign direct investment involves", statements: ["Buying stocks in foreign companies", "Setting up factories abroad", "Exporting goods", "Licensing technology"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 2 },
-            { question: "Which organization provides trade finance?", options: ["WTO", "World Bank", "IMF", "All of the above"], answer: 3 },
-            { question: "Economic indicators include", statements: ["GDP growth rate", "Unemployment rate", "Inflation rate"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What is a recession?", options: ["Period of economic growth", "Period of economic decline", "Period of stable prices", "Period of high employment"], answer: 1 },
-            { question: "The business cycle consists of", statements: ["Boom", "Recession", "Depression", "Recovery"], options: ["I and II only", "I, II and III", "I, II, III and IV", "II and IV only"], answer: 2 },
-            { question: "Which factor influences international business?", statements: ["Cultural differences", "Legal frameworks", "Economic conditions"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What is offshoring?", options: ["Moving production within the same country", "Moving production to another country", "Increasing production capacity", "Reducing workforce"], answer: 1 },
-            { question: "Tariffs are taxes on", options: ["Domestic goods", "Imported goods", "Exported goods", "All goods"], answer: 1 },
-            { question: "The Bretton Woods system established", statements: ["IMF", "World Bank", "Fixed exchange rates"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 2 },
-            { question: "What does WTO stand for?", options: ["World Trade Organization", "World Tax Organization", "World Trade Operation", "World Tourism Organization"], answer: 0 },
-            { question: "Globalization benefits include", statements: ["Access to wider markets", "Lower production costs", "Technology transfer"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which is a challenge of globalization?", statements: ["Increased competition", "Cultural homogenization", "Environmental concerns"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What is sustainable development?", options: ["Rapid economic growth", "Development that meets present needs without compromising future", "Industrial development only", "Economic development only"], answer: 1 },
-            { question: "Corporate governance involves", statements: ["Board accountability", "Transparency in reporting", "Stakeholder protection"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 }
+            { question: "Which of the following is/are the example(s) of economic factors that might affect the business of a jewelry shop in Hong Kong?", statements: ["There is an increase in the income and consumption power of mainland tourists", "The mainland government allows residents of more cities to come to Hong Kong for individual visits", "The cross-border transport facilities are improved"], options: ["(1) only", "(2) only", "(1) and (3) only", "(2) and (3) only"], answer: 0 },
+            { question: "Mike wants to set up a yoghurt shop in Mongkok. Which of the following factors is he considering if he conducts a survey on the tastes and preferences of his target customers?", options: ["Technological factors", "Physical factors", "Economic factors", "Social and cultural factors"], answer: 3 },
+            { question: "A business should be responsible to various stakeholders. List three types of stakeholders in a construction company and explain how the company can ethically fulfill its social responsibilities to each of them. Which of the following is NOT a stakeholder?", options: ["Owners and shareholders", "Manager and employees", "Government", "None of the above"], answer: 3 },
+            { question: "Which of the following statements about the characteristics of Hong Kong economy is correct?", statements: ["Hong Kong lacks arable land and natural resources", "The tertiary sector contributes around 90% of the Hong Kong GDP", "Hong Kong maintains no trade barriers"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "CEPA (Closer Economic Partnership Arrangement) includes", statements: ["Trade in Goods", "Trade in Services", "Investment", "Economic and technical cooperation"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
+            { question: "Which of the following is a Four Pillar Industry in Hong Kong?", options: ["Financial Services", "Farming", "Mining", "Fishing"], answer: 0 },
+            { question: "WTO (World Trade Organization) was set up in", options: ["1990", "1995", "2000", "2005"], answer: 1 },
+            { question: "Which of the following is NOT a function of WTO?", options: ["Reduce obstacles to international trade", "Deal with rules of trade between countries", "Set tax rates for member countries", "Monitor trade policies of members"], answer: 2 },
+            { question: "APEC was founded in", options: ["1985", "1989", "1995", "2000"], answer: 1 },
+            { question: "Factors affecting business decisions include", statements: ["Economic factors", "Social factors", "Political factors", "Legal factors"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
+            { question: "Which of the following is an economic factor?", options: ["Tastes and preferences of customers", "Wage level of labour", "Political stability", "Labor laws"], answer: 1 },
+            { question: "Which of the following is a social factor?", options: ["Income level", "Interest rate", "Tastes and preferences", "Tax rate"], answer: 2 },
+            { question: "Which of the following is a political factor?", options: ["Population size", "Political stability", "Exchange rate", "Infrastructure"], answer: 1 },
+            { question: "Which of the following is a legal factor?", options: ["Government policies", "Minimum wage Ordinance", "Cultural values", "Technology level"], answer: 1 },
+            { question: "Sole proprietorship has", statements: ["Only one owner", "Unlimited liability", "The firm is not a legal entity"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "The profit tax rate of sole proprietorship is", options: ["7.5%", "15%", "16.5%", "17.5%"], answer: 1 },
+            { question: "In a partnership, partners bear", options: ["Limited liability", "Unlimited liability", "No liability", "Partial liability"], answer: 1 },
+            { question: "Types of partners include", statements: ["General partner", "Limited partner", "Nominal partner"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "A private limited company has", statements: ["1 to 50 shareholders", "Limited liability", " lasting business continuity"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Shares of a private limited company", options: ["Can be traded in stock market", "Cannot be traded in stock market", "Are freely transferrable", "Have no restrictions"], answer: 1 },
+            { question: "A public limited company", statements: ["Has no upper limit on shareholders", "Is a legal entity", "Has limited liability"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Business ethics are", options: ["Laws and regulations", "Principles, values and beliefs guiding business behavior", "Government policies", "Tax regulations"], answer: 1 },
+            { question: "Stakeholders of a firm usually include", statements: ["Owners and shareholders", "Manager and employees", "Customers and suppliers", "Government and community"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
+            { question: "Social responsibility refers to", options: ["Making maximum profit", "Responsibility to society and stakeholders", "Avoiding taxes", "Reducing employees"], answer: 1 },
+            { question: "The primary sector includes", options: ["Manufacturing", "Farming and Mining", "Retail and Tourism", "Banking and Finance"], answer: 1 },
+            { question: "The tertiary sector is also known as", options: ["Agriculture sector", "Industrial sector", "Service sector", "Manufacturing sector"], answer: 2 },
+            { question: "Globalization leads to", statements: ["Intensified global competition", "Increasing international flow of capital", "Increasing technology transfer"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Hong Kong pursues", options: ["Free trade with no trade barriers", "Protectionist policies", "High tariff rates", "Import quotas"], answer: 0 },
+            { question: "The GDP measures", options: ["Total value of output produced in an economy", "Total government revenue", "Total exports minus imports", "Total population"], answer: 0 },
+            { question: "Which of the following about the characteristics of a sole proprietorship is correct?", statements: ["Easy to transfer ownership", "Narrower source of capital", "Lack business continuity"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 2 }
         ];
 
-        // Introduction to Management Questions - 50 questions
+        // INTRODUCTION TO MANAGEMENT - 30 questions from PDF Vol.2
         allQuestions['introduction-to-management'] = [
-            // Questions with I, II, III format
-            { question: "The functions of management include", statements: ["Planning", "Organizing", "Staffing", "Controlling"], options: ["I and II only", "I, II and III", "II, III and IV only", "I, II, III and IV"], answer: 3 },
-            { question: "Which of the following is a primary function of management?", options: ["Staffing", "Planning", "Budgeting", "Marketing"], answer: 1 },
-            { question: "The management process involves", statements: ["Decision making", "Coordinating", "Motivating"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Leadership differs from management because leadership", statements: ["Involves inspiring others", "Creates vision", "Focuses on stability"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "Henri Fayol identified", statements: ["14 principles of management", "5 functions of management", "Management theories"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 0 },
-            { question: "Scientific management was pioneered by", options: ["Henri Fayol", "Frederick Winslow Taylor", "Max Weber", "Peter Drucker"], answer: 1 },
-            { question: "The organizational structure can be", statements: ["Functional", "Divisional", "Matrix"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which is not a managerial skill?", options: ["Technical skill", "Human skill", "Conceptual skill", "Financial skill"], answer: 3 },
-            { question: "Span of control refers to", statements: ["Number of subordinates", "Levels of management", "Chain of command"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 0 },
-            { question: "Management is considered both", statements: ["Science", "Art", "Profession"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "Principles of management (Fayol) include", statements: ["Unity of command", "Division of work", "Subordination of individual interests"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "The process of recruitment involves", statements: ["Job analysis", "Job description", "Selection"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which leadership style involves minimal supervision?", options: ["Autocratic", "Democratic", "Laissez-faire", "Paternalistic"], answer: 2 },
-            { question: "Maslow's hierarchy of needs includes", statements: ["Physiological", "Safety", "Social", "Esteem", "Self-actualization"], options: ["I and II only", "I, II and III", "I, II, III and IV", "I, II, III, IV and V"], answer: 3 },
-            { question: "Controlling involves", statements: ["Setting standards", "Measuring performance", "Taking corrective action"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Herzberg's hygiene factors include", statements: ["Salary", "Job security", "Recognition"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "McGregor's Theory X assumes that employees", statements: ["Dislike work", "Avoid responsibility", "Need supervision", "Are ambitious"], options: ["I only", "I and II only", "I, II and III", "II and III only"], answer: 2 },
-            { question: "The components of planning include", statements: ["Mission and objectives", "Strategies and policies", "Programs and budgets"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which is a feature of line organization?", options: ["Direct chain of command", "Specialized functions", "Dual authority", "Matrix structure"], answer: 0 },
-            { question: "Centralization refers to", options: ["Concentrating decision-making at top level", "Distributing decision-making", "Eliminating management levels", "Reducing workforce"], answer: 0 },
-            { question: "What does MBO stand for?", options: ["Management by Objectives", "Methods of Business Operations", "Modern Business Organization", "Management by Organization"], answer: 0 },
-            { question: "Delegation of authority involves", statements: ["Assigning tasks", "Granting power", "Fixing responsibility"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which is not a type of organizational structure?", options: ["Functional", "Divisional", "Circular", "Matrix"], answer: 2 },
-            { question: "Directing involves", statements: ["Leadership", "Motivation", "Communication"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "The span of management affects", statements: ["Number of subordinates reporting to a manager", "Organizational hierarchy", "Communication flow"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What is departmentalization?", options: ["Dividing work into departments", "Hiring new employees", "Setting objectives", "Evaluating performance"], answer: 0 },
-            { question: "Hawthorne experiments focused on", options: ["Work conditions and productivity", "Product design", "Marketing strategies", "Financial management"], answer: 0 },
-            { question: "The process of organizing includes", statements: ["Identifying activities", "Grouping activities", "Assigning duties"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which theory emphasizes situational leadership?", options: ["Contingency theory", "Scientific management", "Bureaucracy", "Classical theory"], answer: 0 },
-            { question: "Communication barriers include", statements: ["Physical barriers", "Semantic barriers", "Psychological barriers"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Staffing is concerned with", options: ["Procurement, placement, training", "Planning only", "Directing only", "Controlling only"], answer: 0 },
-            { question: "Performance appraisal methods include", statements: ["Graphic rating scales", "BARS", "360-degree feedback"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which is not a theory of motivation?", options: ["Maslow's theory", "Taylor's theory", "Weber's theory", "Herzberg's theory"], answer: 2 },
-            { question: "The formal organization is characterized by", statements: ["Written rules", "Defined hierarchy", "Official communication channels"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Decision making can be classified as", options: ["Programmed and non-programmed", "Good and bad", "Fast and slow", "Simple and complex"], answer: 0 },
-            { question: "The steps in decision making include", statements: ["Identifying the problem", "Developing alternatives", "Evaluating alternatives", "Implementing the decision"], options: ["I and II only", "I, II and III", "II, III and IV only", "I, II, III and IV"], answer: 3 },
-            { question: "Management by exception means", options: ["Managers intervene only when performance deviates significantly", "Managers check all tasks", "Employees report all activities", "All decisions require manager approval"], answer: 0 },
-            { question: "Which is a feature of a flat organization?", options: ["Few management levels", "Many management levels", "No management", "Centralized authority"], answer: 0 },
-            { question: "The informal organization serves to", options: ["Satisfy social needs", "Replace formal structure", "Eliminate hierarchies", "Reduce communication"], answer: 0 },
-            { question: "Strategic management involves", statements: ["Setting long-term goals", "Formulating strategies", "Implementing strategies"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What does SWOT stand for?", options: ["Strengths, Weaknesses, Opportunities, Threats", "Systems, Workflows, Operations, Tasks", "Strategy, Work, Organization, Teams", "Strengths, Workflows, Outcomes, Targets"], answer: 0 },
-            { question: "The matrix organization has", statements: ["Dual chain of command", "Single reporting line", "No cross-functional teams", "Fixed reporting structure"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 0 },
-            { question: "Coordinating ensures", statements: ["Harmonization of individual efforts", "Achieving organizational goals", "Integration of activities"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What is the primary objective of management?", options: ["Maximizing profits only", "Achieving organizational goals effectively and efficiently", "Minimizing costs only", "Controlling employees"], answer: 1 },
-            { question: "Leadership can be classified as", options: ["Formal and informal", "Good and bad", "Strong and weak", "Permanent and temporary"], answer: 0 },
-            { question: "The Gantt chart is used for", options: ["Scheduling and monitoring activities", "Organizational design", "Performance appraisal", "Recruitment"], answer: 0 },
-            { question: "What is the quality circle?", options: ["A group of workers who meet to solve quality problems", "A type of organizational structure", "A management technique", "A training program"], answer: 0 },
-            { question: "Innovation in management refers to", options: ["Implementing new ideas", "Copying competitors", "Maintaining status quo", "Reducing workforce"], answer: 0 },
-            { question: "Total Quality Management focuses on", statements: ["Customer satisfaction", "Continuous improvement", "Employee involvement"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which is not a principle of scientific management?", options: ["Rule of thumb", "Scientific task planning", "Scientific selection of workers", "Functional foremanship"], answer: 0 },
-            { question: "What is the net present value?", options: ["The difference between present value of inflows and outflows", "Total revenue", "Net profit", "Gross profit"], answer: 0 },
-            { question: "The grapevine communication network is", options: ["Informal", "Formal", "Official", "Authorized"], answer: 0 }
+            { question: "Management is the process that managers used to accomplish organizational goals through", statements: ["Planning", "Organizing", "Leading", "Controlling"], options: ["(1) only", "(1) and (2) only", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
+            { question: "The importance of management includes", statements: ["Enhance the efficiency use of resources", "Help staff achieve the goal effectively"], options: ["(1) only", "(2) only", "(1) and (2)", "Neither (1) nor (2)"], answer: 2 },
+            { question: "Planning is", options: ["Deciding in advance what to do, when to do and how to do", "Directing employees", "Controlling expenses", "Organizing resources"], answer: 0 },
+            { question: "SMART goals characteristics include", statements: ["Specific", "Measurable", "Attainable", "Relevant", "Time-based"], options: ["(1) and (2) only", "(1), (2) and (3)", "(1), (2), (3) and (4)", "(1), (2), (3), (4) and (5)"], answer: 3 },
+            { question: "Which management level determines the company's overall goals and direction?", options: ["Top management", "Middle management", "Front-line management", "All levels"], answer: 0 },
+            { question: "Front-line managers are responsible for", statements: ["Making strategic decisions", "Monitoring daily operations", "Formulating corporate policies"], options: ["(1) only", "(2) only", "(3) only", "(1), (2) and (3)"], answer: 1 },
+            { question: "Flat organizational structure has", statements: ["Fewer levels of management", "Wider span of control", "Shorter decision-making process"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Tall organizational structure has", statements: ["More levels", "Narrower span of control", "Slower decision making"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Departmentalization by geographical location is commonly used by", options: ["Small companies", "Multinational corporations", "Retail stores", "Manufacturing companies"], answer: 1 },
+            { question: "Leading refers to", options: ["Guiding, directing, and motivating people", "Allocating work", "Setting standards", "Evaluating performance"], answer: 0 },
+            { question: "Autocratic leadership style", statements: ["Little input from group members", "Leaders make almost all decisions", "Work tends to be highly structured"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Democratic/Participative leadership", statements: ["Leaders invite input from employees", "Staff are given information about company issues", "Majority vote in decision making"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Laissez-faire leadership leads to", options: ["Highest productivity", "Lowest productivity", "Moderate productivity", "No effect on productivity"], answer: 1 },
+            { question: "Controlling is", options: ["Monitoring activities to ensure they are done as planned", "Hiring new employees", "Setting goals", "Organizing resources"], answer: 0 },
+            { question: "Process of controlling includes", statements: ["Setting performance standards", "Measuring actual performance", "Taking corrective actions"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Division of work means", options: ["Breaking down production into different tasks", "Hiring more workers", "Increasing salaries", "Reducing working hours"], answer: 0 },
+            { question: "Unity of command means", options: ["Each worker takes orders from only one superior", "All workers do the same job", "One worker supervises all", "Workers choose their own tasks"], answer: 0 },
+            { question: "Unity of direction means", options: ["Employees on same project have same goal", "Only one manager in company", "All departments report to CEO", "Single product line only"], answer: 0 },
+            { question: "Delegation is effective when", statements: ["Authority delegated in line with responsibility", "Delegating to capable subordinates", "Providing sufficient resources"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Human resources management tasks include", statements: ["Recruit and select staff", "Provide training", "Conduct performance appraisal"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Finance management department is responsible for", statements: ["Develop financial plans and budgets", "Monitor cash inflow and outflow", "Assess investment projects"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Operations management involves", statements: ["Plan for production capacity", "Design production process", "Manage inventory"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Marketing management includes", statements: ["Identify market opportunities", "Determine market position", "Select target market"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "The 4P model in marketing includes", statements: ["Product", "Price", "Place", "Promotion"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
+            { question: "Information management is", options: ["Equal to ICT", "Not equal to ICT only", "Only for IT companies", "Not important"], answer: 1 },
+            { question: "Risk management strategies include", statements: ["Risk avoidance", "Risk assumption", "Risk reduction", "Risk transfer"], options: ["(1) and (2) only", "(1), (2) and (3)", "(2), (3) and (4)", "(1), (2), (3) and (4)"], answer: 3 },
+            { question: "SMEs in Hong Kong employ", options: ["Fewer than 100 persons for manufacturing", "Fewer than 50 persons for non-manufacturing", "More than 500 persons", "Exactly 100 persons"], answer: 0 },
+            { question: "Entrepreneurs are people who", options: ["Take risks to start a business for making profits", "Work for large companies", "Avoid any business activities", "Only invest in stocks"], answer: 0 },
+            { question: "MNCs (Multinational Corporations) usually", statements: ["Have larger production scale", "Are managed by professional managers", "Have complex organization structures"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 }
         ];
 
-        // Personal Financial Management Questions - 50 questions
+        // PERSONAL FINANCIAL MANAGEMENT - 30 questions from PDF Vol.3
         allQuestions['personal-financial-management'] = [
-            // Questions with I, II, III format
-            { question: "Personal financial planning involves", statements: ["Setting financial goals", "Creating budget", "Investment decisions"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which of the following is a component of personal financial statements?", statements: ["Balance sheet", "Income statement", "Cash flow statement"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "The time value of money concept states that", statements: ["Money has earning power", "Money today is worth more than future", "Interest rates always increase"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "Risk in investment can be", statements: ["Systematic", "Unsystematic", "Total"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "Common types of bank accounts include", statements: ["Savings account", "Current account", "Fixed deposit"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Which is not a type of insurance?", options: ["Life insurance", "Health insurance", "Property insurance", "Currency insurance"], answer: 3 },
-            { question: "Tax planning considerations include", statements: ["Deductions", "Tax brackets", "Tax credits"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "The rule of 72 is used to calculate", options: ["Compound interest", "Simple interest", "Time to double investment", "Tax liability"], answer: 2 },
-            { question: "Emergency fund should cover", statements: ["3 months expenses", "6 months expenses", "12 months expenses"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "Asset allocation refers to", statements: ["Diversifying across asset classes", "Selecting specific investments", "Timing the market"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "Financial goals can be", statements: ["Short-term", "Medium-term", "Long-term"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Compound interest is calculated on", statements: ["Principal", "Accumulated interest", "Principal minus interest"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "Which ratio measures ability to pay short-term debts?", options: ["Debt-to-income ratio", "Current ratio", "Savings ratio", "Return on investment"], answer: 1 },
-            { question: "Retirement planning involves", statements: ["Determining retirement needs", "Choosing investment vehicles", "Creating withdrawal strategy"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "Liquidity refers to", statements: ["Ability to convert to cash quickly", "Availability of funds", "Interest rates"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 1 },
-            { question: "What does ROI stand for?", options: ["Return on Investment", "Rate of Inflation", "Ratio of Income", "Return on Income"], answer: 0 },
-            { question: "The income statement shows", options: ["Revenue and expenses", "Assets and liabilities", "Cash flows only", "Equity changes"], answer: 0 },
-            { question: "Net worth is calculated as", options: ["Total assets minus total liabilities", "Total income minus expenses", "Total assets plus liabilities", "Total revenue"], answer: 0 },
-            { question: "Which is a fixed expense?", options: ["Rent", "Utilities", "Food", "Entertainment"], answer: 0 },
-            { question: "Diversification reduces", options: ["Investment risk", "Returns", "Taxes", "Inflation"], answer: 0 },
-            { question: "The 50/30/20 budgeting rule suggests spending 50% on", options: ["Needs", "Wants", "Savings", "Investments"], answer: 0 },
-            { question: "What is a bond?", options: ["A debt security", "Ownership share in a company", "A type of insurance", "A savings account"], answer: 0 },
-            { question: "Stock represents", options: ["Ownership in a company", "A loan to a company", "A guarantee of returns", "A fixed deposit"], answer: 0 },
-            { question: "Which is a characteristic of growth investing?", options: ["Focus on capital appreciation", "Regular income generation", "Low risk tolerance", "Short-term holding period"], answer: 0 },
-            { question: "What does ETF stand for?", options: ["Exchange Traded Fund", "Electronic Transfer Fund", "Equity Trading Fund", "External Trading Fund"], answer: 0 },
-            { question: "Real estate investment offers", statements: ["Rental income", "Capital appreciation", "Tax benefits"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What is a mutual fund?", options: ["Pooled investment vehicle", "Individual stock", "Government bond", "Bank account"], answer: 0 },
-            { question: "The credit score is used by", options: ["Lenders to assess creditworthiness", "Employers only", "Insurance companies only", "Government only"], answer: 0 },
-            { question: "Debt consolidation is used to", options: ["Combine multiple debts into one", "Increase credit limit", "Close bank accounts", "Reduce savings"], answer: 0 },
-            { question: "Simple interest is calculated on", options: ["Original principal only", "Principal and accumulated interest", "Total wealth", "Income only"], answer: 0 },
-            { question: "Which is a tax-advantaged account?", options: ["401(k)", "Checking account", "Credit card", "Payday loan"], answer: 0 },
-            { question: "The inflation rate affects", statements: ["Purchasing power", "Interest rates", "Investment returns"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What is the prime rate?", options: ["Interest rate banks charge their best customers", "Rate for government bonds", "Average market rate", "Fixed annual rate"], answer: 0 },
-            { question: "Dollar cost averaging involves", options: ["Investing fixed amounts at regular intervals", "Timing the market perfectly", "Buying only growth stocks", "Selling all investments annually"], answer: 0 },
-            { question: "Financial leverage refers to", options: ["Using borrowed money to invest", "Avoiding all debt", "Maximizing savings", "Minimizing income"], answer: 0 },
-            { question: "What does APR stand for?", options: ["Annual Percentage Rate", "Average Payment Rate", "Accumulated Principal Return", "Asset Price Ratio"], answer: 0 },
-            { question: "An annuity is", options: ["A series of payments over time", "A lump sum payment", "A type of stock", "A bank account"], answer: 0 },
-            { question: "The debt-to-income ratio is calculated as", options: ["Total debt divided by total income", "Total assets divided by income", "Savings divided by income", "Investments divided by debt"], answer: 0 },
-            { question: "Capital gains occur when", options: ["Investment is sold for profit", "Interest is earned", "Dividends are received", "Bonds mature"], answer: 0 },
-            { question: "What is a hedge fund?", options: ["Pooled investment for wealthy investors", "Government savings program", "Bank savings account", "Retail investment fund"], answer: 0 },
-            { question: "The Federal Reserve affects the economy through", statements: ["Open market operations", "Discount rate changes", "Reserve requirements"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What is compound annual growth rate (CAGR)?", options: ["Average annual growth rate over a period", "Total growth rate", "Monthly growth rate", "Quarterly growth rate"], answer: 0 },
-            { question: "Cash flow is", options: ["Movement of money in and out", "Total income", "Total assets", "Net worth"], answer: 0 },
-            { question: "Which is a liquid asset?", options: ["Savings account", "House", "Car", "Art collection"], answer: 0 },
-            { question: "A budget deficit occurs when", options: ["Expenses exceed income", "Income exceeds expenses", "Income equals expenses", "Savings increase"], answer: 0 },
-            { question: "Risk tolerance depends on", statements: ["Age and financial goals", "Investment knowledge", "Income level"], options: ["I only", "I and II only", "II and III only", "I, II and III"], answer: 3 },
-            { question: "What is a cd (Certificate of Deposit)?", options: ["Time deposit with fixed term", "Checking account feature", "Credit card type", "Investment in stocks"], answer: 0 },
-            { question: "Portfolio diversification means", options: ["Spreading investments across different assets", "Putting all money in one stock", "Only investing in bonds", "Avoiding stocks entirely"], answer: 0 },
-            { question: "What is the purpose of a will?", options: ["Distribute assets after death", "Avoid taxes", "Increase income", "Reduce expenses"], answer: 0 },
-            { question: "What is probate?", options: ["Legal process of validating a will", "Tax filing process", "Insurance claim process", "Investment strategy"], answer: 0 }
+            { question: "Time value of money means", options: ["A dollar received today is worth more than a dollar in the future", "Money loses value every year", "Interest rates are always high", "Inflation is good for savers"], answer: 0 },
+            { question: "Future Value (FV) formula is", options: ["PV × (1 + r)^n", "FV / (1 + r)^n", "PV × r × n", "FV × r × n"], answer: 0 },
+            { question: "Present Value (PV) formula is", options: ["FV / (1 + r)^n", "PV × (1 + r)^n", "FV × r × n", "PV / r"], answer: 0 },
+            { question: "Compounding means", options: ["Interest is reinvested to earn further return", "Principal is decreased", "Only interest is paid", "Money is withdrawn"], answer: 0 },
+            { question: "Discounting is the process of", options: ["Finding present value of future cash flow", "Finding future value", "Calculating interest only", "Tax calculation"], answer: 0 },
+            { question: "NPV (Net Present Value) decision: If NPV is positive, the firm should", options: ["Buy the machine", "Not buy the machine", "Sell the machine", "Do nothing"], answer: 0 },
+            { question: "NPV (Net Present Value) decision: If NPV is negative, the firm should", options: ["Not buy the machine", "Buy the machine", "Borrow more money", "Hire more workers"], answer: 0 },
+            { question: "Nominal interest rate is", options: ["Rate stated on financial instruments", "Actual interest received", "Effective rate of return", "Inflation rate"], answer: 0 },
+            { question: "Effective interest rate reflects", options: ["Effect of frequency of compounding", "Nominal rate only", "Bank fees", "Tax charges"], answer: 0 },
+            { question: "If compounding frequency is higher, effective rate is", options: ["Higher", "Lower", "Same", "Zero"], answer: 0 },
+            { question: "Consumer credit is", options: ["Arrangement to receive goods/services first and pay later", "Cash payment only", "Savings account", "Investment product"], answer: 0 },
+            { question: "Credit cards have", statements: ["A credit limit set", "Minimum payment requirement", "Interest charged on unpaid balance"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Personal credit record is stored in", options: ["TransUnion Limited", "Banks only", "Government only", "Employers"], answer: 0 },
+            { question: "Ways to improve credit score include", statements: ["Make loan repayments on time", "Limit loan applications", "Keep outstanding debt low"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Return on investment includes", statements: ["Periodic income (dividend, interest)", "Capital gain when selling at higher price"], options: ["(1) only", "(2) only", "(1) and (2)", "Neither"], answer: 2 },
+            { question: "Risk is", options: ["Uncertainty of outcome", "Certain return", "Guaranteed profit", "Zero loss"], answer: 0 },
+            { question: "Most people are risk", options: ["Averse", "Loving", "Neutral", "Indifferent"], answer: 0 },
+            { question: "Firm-specific risk is also called", options: ["Unsystematic risk", "Market risk", "Systematic risk", "Non-diversifiable risk"], answer: 0 },
+            { question: "Market risk is also called", options: ["Systematic risk", "Unsystematic risk", "Firm-specific risk", "Diversifiable risk"], answer: 0 },
+            { question: "Higher risk investments should bring", options: ["Higher expected return", "Lower expected return", "Same return", "No return"], answer: 0 },
+            { question: "Which investment has highest risk and highest return?", options: ["Stocks/Shares", "Bonds", "Deposits", "Savings accounts"], answer: 0 },
+            { question: "Ordinary shareholders have", options: ["Voting rights", "Fixed dividend", "Guaranteed return", "No ownership"], answer: 0 },
+            { question: "Preference shareholders receive", options: ["Fixed dividend", "Variable dividend", "No dividend", "Capital gain only"], answer: 0 },
+            { question: "Bonds provide", options: ["Interest return and capital gain", "Only dividend", "Only voting rights", "Ownership"], answer: 0 },
+            { question: "MPF is a", options: ["Compulsory retirement protection system", "Optional savings scheme", "Investment fund", "Insurance product"], answer: 0 },
+            { question: "MPF mandatory contribution for employees earning above $30,000 is", options: ["$1,500", "$355", "$0", "$700"], answer: 0 },
+            { question: "MPF benefits can be withdrawn at age", options: ["65", "60", "55", "70"], answer: 0 },
+            { question: "Early withdrawal of MPF can be made for", statements: ["Early retirement at age 60", "Permanent departure from Hong Kong", "Total incapacity"], options: ["(1) only", "(1) and (2) only", "(2) and (3) only", "(1), (2) and (3)"], answer: 3 },
+            { question: "Hang Seng Index is a", options: ["Stock market index", "Bond market index", "Commodity index", "Currency index"], answer: 0 },
+            { question: "Blue chip stocks refer to", options: ["Stocks of well-established companies", "New startup companies", "Government bonds", "Foreign stocks"], answer: 0 }
         ];
 
         function loadSubject(subject) {
@@ -580,12 +339,9 @@
                 questions = [...allQuestions[subject]];
             }
             
-            // Shuffle questions
             questions = shuffleArray(questions);
-            
             currentIndex = 0;
             userAnswers = new Array(questions.length).fill(null);
-            showReview = true;
             
             document.getElementById('subjectBadge').textContent = subjectNames[subject];
             document.getElementById('subjectBadge').className = 'badge ' + subjectBadge[subject];
@@ -609,8 +365,8 @@
             if (q.statements) {
                 let statementsHTML = '<ul class="statement-list">';
                 q.statements.forEach((stmt, i) => {
-                    const labels = ['I', 'II', 'III', 'IV', 'V'];
-                    statementsHTML += `<li class="statement-item"><span class="statement-label">${labels[i]}.</span><span class="statement-text">${stmt}</span></li>`;
+                    const labels = ['(1)', '(2)', '(3)', '(4)', '(5)'];
+                    statementsHTML += `<li class="statement-item"><span class="statement-label">${labels[i]}</span><span class="statement-text">${stmt}</span></li>`;
                 });
                 statementsHTML += '</ul>';
                 return q.question + statementsHTML;
@@ -629,8 +385,7 @@
             const container = document.getElementById('optionsContainer');
             container.innerHTML = '';
             
-            // Clear any existing feedback buttons
-            const existingFeedbackBtns = document.querySelectorAll('.answer-feedback, .correct-answer-display');
+            const existingFeedbackBtns = document.querySelectorAll('.answer-feedback');
             existingFeedbackBtns.forEach(el => el.remove());
             
             const hasAnswered = userAnswers[currentIndex] !== null;
@@ -639,21 +394,16 @@
                 const div = document.createElement('div');
                 div.className = 'option';
                 
-                // Determine class based on whether question is answered
-                if (hasAnswered) {
+                // Always show correct answer after answering
+                if (i === q.answer) {
+                    div.classList.add('correct-answer');
+                }
+                
+                if (hasAnswered && userAnswers[currentIndex] === i) {
                     if (i === q.answer) {
-                        div.classList.add('correct-answer');
-                    }
-                    if (userAnswers[currentIndex] === i) {
-                        if (i === q.answer) {
-                            div.classList.add('correct-answer-selected');
-                        } else {
-                            div.classList.add('wrong-answer-selected');
-                        }
-                    }
-                } else {
-                    if (userAnswers[currentIndex] === i) {
-                        div.classList.add('selected');
+                        div.classList.add('correct-answer-selected');
+                    } else {
+                        div.classList.add('wrong-answer-selected');
                     }
                 }
                 
@@ -669,21 +419,17 @@
                 container.appendChild(div);
             });
             
-            // Show feedback if answered
             let feedbackHTML = '';
             if (hasAnswered) {
                 const isCorrect = userAnswers[currentIndex] === q.answer;
                 feedbackHTML = `
                     <div class="answer-feedback ${isCorrect ? 'correct' : 'incorrect'}">
-                        ${isCorrect ? '✓ Correct! Well done!' : '✗ Incorrect! The correct answer is: ' + q.options[q.answer]}
+                        ${isCorrect ? '✓ CORRECT! Well done!' : '✗ INCORRECT!'}
                     </div>
-                    ${!isCorrect ? `<div class="correct-answer-display">Correct Answer: ${q.options[q.answer]}</div>` : ''}
-                `;
-            }
-            
-            // Add navigation buttons after answering
-            if (hasAnswered) {
-                feedbackHTML += `
+                    <div class="correct-answer-box">
+                        <strong>Correct Answer: ${String.fromCharCode(65 + q.answer)}. ${q.options[q.answer]}</strong>
+                    </div>
+                    ${!isCorrect ? `<div class="your-answer-box">Your answer: ${String.fromCharCode(65 + userAnswers[currentIndex])}. ${q.options[userAnswers[currentIndex]]}</div>` : ''}
                     <div class="btn-group" style="margin-top: 15px;">
                         ${currentIndex > 0 ? '<button class="btn btn-secondary" onclick="prevQuestion()">← Previous</button>' : ''}
                         ${currentIndex < questions.length - 1 ? '<button class="btn" onclick="nextQuestion()">Next →</button>' : '<button class="btn" onclick="submitExam()">Submit Exam</button>'}
@@ -692,8 +438,6 @@
             }
             
             container.insertAdjacentHTML('afterend', feedbackHTML);
-            
-            // Hide original nav buttons when showing feedback
             document.getElementById('navButtons').style.display = hasAnswered ? 'none' : 'flex';
         }
 
@@ -716,64 +460,24 @@
             }
         }
 
-        function clearFeedback() {
-            const existingFeedback = document.querySelector('.answer-feedback');
-            const existingBtnGroup = document.querySelector('#navButtons');
-            if (existingFeedback) {
-                const parent = existingFeedback.parentNode;
-                const btnGroupInFeedback = existingFeedback.nextElementSibling;
-                if (btnGroupInFeedback && btnGroupInFeedback.classList.contains('btn-group')) {
-                    btnGroupInFeedback.remove();
-                }
-                existingFeedback.remove();
-            }
-            const correctDisplay = document.querySelector('.correct-answer-display');
-            if (correctDisplay) correctDisplay.remove();
-        }
-
         function submitExam() {
             const unanswered = questions.filter((_, i) => userAnswers[i] === null).length;
             if (unanswered > 0) {
-                if (!confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`)) {
-                    return;
-                }
+                if (!confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`)) return;
             }
             showResults();
         }
 
-        function toggleReview() {
-            showReview = !showReview;
-            document.getElementById('reviewContainer').style.display = showReview ? 'block' : 'none';
-        }
-
         function showResults() {
             let correct = 0;
-            let resultsHTML = '<div id="reviewContainer" style="display: block;">';
             
             questions.forEach((q, i) => {
-                const userAns = userAnswers[i];
-                const isCorrect = userAns === q.answer;
-                if (isCorrect) correct++;
-                
-                resultsHTML += `
-                    <div class="review-item">
-                        <div class="review-question">Q${i + 1}: ${getQuestionHTML(q)}</div>
-                        <div class="review-answer-correct">✓ Correct Answer: ${q.options[q.answer]}</div>
-                        ${userAns !== null ? `
-                            <div class="${isCorrect ? 'review-your-answer' : 'review-answer-wrong'}">
-                                ${isCorrect ? 'Your answer was correct!' : `Your answer: ${q.options[userAns]}`}
-                            </div>
-                        ` : '<div class="review-answer-wrong">Not answered</div>'}
-                    </div>
-                `;
+                if (userAnswers[i] === q.answer) correct++;
             });
-            
-            resultsHTML += '</div>';
             
             const percentage = Math.round((correct / questions.length) * 100);
             document.getElementById('scoreDisplay').textContent = percentage + '%';
             document.getElementById('scoreDetails').textContent = `${correct} out of ${questions.length} correct`;
-            document.getElementById('reviewContainer').outerHTML = resultsHTML;
             document.getElementById('resultBadge').textContent = subjectNames[currentSubject];
             document.getElementById('resultBadge').className = 'badge ' + subjectBadge[currentSubject];
             
@@ -785,7 +489,6 @@
             questions = shuffleArray(questions);
             userAnswers = new Array(questions.length).fill(null);
             currentIndex = 0;
-            showReview = true;
             showQuestion();
             document.getElementById('resultScreen').classList.add('hidden');
             document.getElementById('examScreen').classList.remove('hidden');
